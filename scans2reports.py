@@ -217,7 +217,7 @@ class Scans2Reports:
                 )
 
                 main_app.main_window.statusBar().showMessage(status)
-                main_app.main_window.progressBar.setValue( ( num_files - self.q.qsize())/num_files * 100 )
+                main_app.main_window.progressBar.setValue( int ( ( num_files - self.q.qsize())/num_files * 100 ))
                 QtGui.QGuiApplication.processEvents()
                 # time.sleep(1)
 

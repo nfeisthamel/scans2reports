@@ -1382,8 +1382,12 @@ m=(['Winter', 'Spring', 'Summer', 'Autumn'][((int(str(scd).split('-')[1]) -1 )//
                     fqdn_val = (str(host['hostname']))
                     
                 scan_date = datetime.datetime.strptime(scan['scan_date'], '%a %b %d %H:%M:%S %Y')
+                if scan['feed']:
                 feed = datetime.datetime.strptime(scan['feed'], '%Y%m%d%H%M')
+                else:
+                    feed = ''
                 
+                if host['scan_details']:
                 for line in host['scan_details'].split('\n'):
                     if 'Plugin feed version' in line:
                         k,v = line.split(':', 1)
@@ -1413,9 +1417,9 @@ m=(['Winter', 'Spring', 'Summer', 'Autumn'][((int(str(scd).split('-')[1]) -1 )//
                     'ACAS Scan Users'                        : host['scan_user'],
                     'ACAS Credentialed Checks'               : host['credentialed'],
                     
-                    'ACAS Feed Version'                      : feed.strftime('%Y%m%d%H%M'),
+                    'ACAS Feed Version'                      : feed.strftime('%Y%m%d%H%M') if feed else '',
                     'ACAS Scan Start Date'                   : scan_date.strftime('%Y/%m/%d %H:%M %Z'),
-                    'ACAS Days Between Plugin Feed And Scan' : (scan_date - feed).days,
+                    'ACAS Days Between Plugin Feed And Scan' : (scan_date - feed).days if feed and scan_date else '',
                     
                     'STIG CKL File'                      : '',
                     'STIG CKL Version/Release'               : '',
@@ -2175,7 +2179,7 @@ m=(['Winter', 'Spring', 'Summer', 'Autumn'][((int(str(scd).split('-')[1]) -1 )//
                     'Scan To Feed Difference': (
                                 datetime.datetime.strptime(scan['scan_date'], '%a %b %d %H:%M:%S %Y') -
                                 datetime.datetime.strptime(scan['feed'], '%Y%m%d%H%M')
-                            ).days,
+                            ).days if scan['scan_date'] and scan['feed'] else '',
                             
                     'Version': scan['version'],
                     'Release': scan['feed'],

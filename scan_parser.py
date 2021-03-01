@@ -252,7 +252,7 @@ class ScanParser:
                     'serial'        : serial,
                     
                     'host_date'     : str(next(iter(host.xpath("./HostProperties/tag[@name='HOST_START']/text()")), '')),
-                    'credentialed'  : Utils.parse_bool(str(next(iter( host.xpath("./HostProperties/tag[@name='Credentialed_Scan']/text()"))))),
+                    'credentialed'  : Utils.parse_bool(str(next(iter( host.xpath("./HostProperties/tag[@name='Credentialed_Scan']/text()")), ''))),
                     'scan_user'     : scan_user,
                     'port_range'    : port_range,
                     'duration'      : duration,

@@ -1383,26 +1383,26 @@ m=(['Winter', 'Spring', 'Summer', 'Autumn'][((int(str(scd).split('-')[1]) -1 )//
                     
                 scan_date = datetime.datetime.strptime(scan['scan_date'], '%a %b %d %H:%M:%S %Y')
                 if scan['feed']:
-                feed = datetime.datetime.strptime(scan['feed'], '%Y%m%d%H%M')
+                    feed = datetime.datetime.strptime(scan['feed'], '%Y%m%d%H%M')
                 else:
                     feed = ''
                 
                 if host['scan_details']:
-                for line in host['scan_details'].split('\n'):
-                    if 'Plugin feed version' in line:
-                        k,v = line.split(':', 1)
-                        try:
-                            feed = datetime.datetime.strptime(str(v).strip(), '%Y%m%d%H%M')
-                        except:
-                            pass
-                            
-                    if 'Scan Start Date' in line:
-                        k,v = line.split(':', 1)
-                        try:
-                            scan_date = datetime.datetime.strptime( str(v).strip() , '%Y/%m/%d %H:%M %Z')
-                        except:
-                            pass
-                    
+                    for line in host['scan_details'].split('\n'):
+                        if 'Plugin feed version' in line:
+                            k,v = line.split(':', 1)
+                            try:
+                                feed = datetime.datetime.strptime(str(v).strip(), '%Y%m%d%H%M')
+                            except:
+                                pass
+                                
+                        if 'Scan Start Date' in line:
+                            k,v = line.split(':', 1)
+                            try:
+                                scan_date = datetime.datetime.strptime( str(v).strip() , '%Y/%m/%d %H:%M %Z')
+                            except:
+                                pass
+                        
                 # print(scan_date, feed)
 
                 hardware.append({

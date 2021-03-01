@@ -325,7 +325,7 @@ class Scans2Reports:
             logging.info(status)
 
             if main_app.main_window:
-                main_app.main_window.progressBar.setValue(int(100*index/(len(total_reports))*.9)   )
+                main_app.main_window.progressBar.setValue( int(100*index/(len(total_reports))*.9)   )
                 QtGui.QGuiApplication.processEvents()
             getattr(reports, report)()
 

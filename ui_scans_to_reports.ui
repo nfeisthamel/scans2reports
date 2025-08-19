@@ -7,8 +7,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1400</width>
-    <height>864</height>
+    <width>1415</width>
+    <height>892</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,85 +22,91 @@
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="1" column="0" colspan="2">
-     <widget class="QGroupBox" name="grp_selected_scans">
-      <property name="styleSheet">
-       <string notr="true">QGroupBox{
+   <widget class="QGroupBox" name="grp_selected_scans">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>370</y>
+      <width>1391</width>
+      <height>209</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox{
 background-color: #c1dbc7;
 border-radius:15px;
 border:1px solid #000000;
 }</string>
-      </property>
-      <property name="title">
-       <string>Selected Scan Files</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_7">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>12</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <layout class="QGridLayout" name="grid_selected_scans">
-         <item row="0" column="2">
-          <widget class="QPushButton" name="btn_parse_scan_files">
-           <property name="minimumSize">
-            <size>
-             <width>50</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>50</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>14</pointsize>
-            </font>
-           </property>
-           <property name="toolTip">
-            <string>Click this button to parse the selected scan files</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(30, 126, 52);
+    </property>
+    <property name="title">
+     <string>Selected Scan Files</string>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_7">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>12</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item row="0" column="0">
+      <layout class="QGridLayout" name="grid_selected_scans">
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btn_parse_scan_files">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>150</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>150</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Click this button to parse the selected scan files</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(30, 126, 52);
 color: #ffffff;
 border-radius: 15px;
 font-size:14pt;</string>
-           </property>
-           <property name="text">
-            <string>P
+         </property>
+         <property name="text">
+          <string>P
 A
 R
 S
 E</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QTableWidget" name="tbl_selected_scans">
-           <property name="focusPolicy">
-            <enum>Qt::ClickFocus</enum>
-           </property>
-           <property name="contextMenuPolicy">
-            <enum>Qt::ActionsContextMenu</enum>
-           </property>
-           <property name="toolTip">
-            <string>This table is a summary of all the selected scan files</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QTableWidget{
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QTableWidget" name="tbl_selected_scans">
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::ActionsContextMenu</enum>
+         </property>
+         <property name="toolTip">
+          <string>This table is a summary of all the selected scan files</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QTableWidget{
 background:#ffffff;
 border-radius:0px;
 border: 1px solid black;
@@ -123,130 +129,136 @@ QTableCornerButton::section{
             border-bottom: 1px solid #D8D8D8;
             background-color:white;
         }</string>
-           </property>
-           <property name="alternatingRowColors">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QPushButton" name="btnClearSelectedScans">
-           <property name="minimumSize">
-            <size>
-             <width>25</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>25</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Clear the Selected Scans and Scan Summary Tables</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: #c1dbc7;
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="btnClearSelectedScans">
+         <property name="minimumSize">
+          <size>
+           <width>25</width>
+           <height>150</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>150</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Clear the Selected Scans and Scan Summary Tables</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #c1dbc7;
 color: rgb(133, 100, 4);
 font-size:10pt;
 </string>
-           </property>
-           <property name="text">
-            <string>C
+         </property>
+         <property name="text">
+          <string>C
 L
 E
 A
 R</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-    <item row="2" column="0" colspan="2">
-     <widget class="QGroupBox" name="grp_scan_summary">
-      <property name="styleSheet">
-       <string notr="true">QGroupBox{
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="grp_scan_summary">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>590</y>
+      <width>1391</width>
+      <height>209</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox{
 background: #f5d7d9;
 border-radius:15px;
 border:1px solid #000000;
 }</string>
-      </property>
-      <property name="title">
-       <string>Scan Summary</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_9">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-       <property name="rightMargin">
-        <number>12</number>
-       </property>
-       <property name="bottomMargin">
-        <number>0</number>
-       </property>
-       <item row="0" column="0">
-        <layout class="QGridLayout" name="grid_scan_summary">
-         <item row="0" column="2">
-          <widget class="QPushButton" name="btn_execute">
-           <property name="minimumSize">
-            <size>
-             <width>50</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>50</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>14</pointsize>
-             <weight>50</weight>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="toolTip">
-            <string>Click this button to generate the reports for the selected scan files.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(200, 35, 51);
+    </property>
+    <property name="title">
+     <string>Scan Summary</string>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_9">
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>12</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item row="0" column="0">
+      <layout class="QGridLayout" name="grid_scan_summary">
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btn_execute">
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>150</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>50</width>
+           <height>150</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>14</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="toolTip">
+          <string>Click this button to generate the reports for the selected scan files.</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(200, 35, 51);
 color: #ffffff;
 border-radius: 15px;
 font-size:14pt;</string>
-           </property>
-           <property name="text">
-            <string>R
+         </property>
+         <property name="text">
+          <string>R
 E
 P
 O
 R
 T</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QTableWidget" name="tbl_scan_summary">
-           <property name="focusPolicy">
-            <enum>Qt::ClickFocus</enum>
-           </property>
-           <property name="toolTip">
-            <string>This is a summary of all the parsed scan data</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QTableWidget{
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QTableWidget" name="tbl_scan_summary">
+         <property name="focusPolicy">
+          <enum>Qt::ClickFocus</enum>
+         </property>
+         <property name="toolTip">
+          <string>This is a summary of all the parsed scan data</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QTableWidget{
 background: #ffffff;
 border-radius: 0px;
 margin-left:0px;
@@ -269,1067 +281,1180 @@ QTableCornerButton::section{
             border-bottom: 1px solid #D8D8D8;
             background-color:white;
         }</string>
-           </property>
-           <property name="alternatingRowColors">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QPushButton" name="btnClearScanSummary">
-           <property name="minimumSize">
-            <size>
-             <width>25</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>25</width>
-             <height>150</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Clear the Scan Summary Table</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: #f5d7d9;
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="btnClearScanSummary">
+         <property name="minimumSize">
+          <size>
+           <width>25</width>
+           <height>150</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>150</height>
+          </size>
+         </property>
+         <property name="toolTip">
+          <string>Clear the Scan Summary Table</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #f5d7d9;
 color: rgb(133, 100, 4);
 font-size:10pt;
 </string>
-           </property>
-           <property name="text">
-            <string>C
+         </property>
+         <property name="text">
+          <string>C
 L
 E
 A
 R</string>
-           </property>
-           <property name="flat">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QGroupBox" name="grp_file_drop">
-      <property name="acceptDrops">
-       <bool>true</bool>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QGroupBox{
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="grp_file_drop">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>0</y>
+      <width>651</width>
+      <height>361</height>
+     </rect>
+    </property>
+    <property name="acceptDrops">
+     <bool>true</bool>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox{
 background: rgb(226, 240, 251); 
 border:1px solid #000000;
 padding-top:10px;
 border-radius:15px;
 }</string>
-      </property>
-      <property name="title">
-       <string>Scan Drop</string>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="leftMargin">
-        <number>4</number>
-       </property>
-       <property name="topMargin">
-        <number>4</number>
-       </property>
-       <property name="rightMargin">
-        <number>4</number>
-       </property>
-       <property name="bottomMargin">
-        <number>4</number>
-       </property>
-       <item>
-        <layout class="QGridLayout" name="grid_file_drop">
-         <item row="1" column="0">
-          <widget class="QFrame" name="frm_file_drop">
-           <property name="palette">
-            <palette>
-             <active>
-              <colorrole role="WindowText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Button">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>226</red>
-                 <green>240</green>
-                 <blue>251</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Light">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>255</green>
-                 <blue>255</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Midlight">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>240</red>
-                 <green>247</green>
-                 <blue>253</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Dark">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>113</red>
-                 <green>120</green>
-                 <blue>125</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Mid">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>151</red>
-                 <green>160</green>
-                 <blue>167</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Text">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="BrightText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>255</green>
-                 <blue>255</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="ButtonText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Base">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>226</red>
-                 <green>240</green>
-                 <blue>251</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Window">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>226</red>
-                 <green>240</green>
-                 <blue>251</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Shadow">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="AlternateBase">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>240</red>
-                 <green>247</green>
-                 <blue>253</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="ToolTipBase">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>255</green>
-                 <blue>220</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="ToolTipText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="PlaceholderText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="128">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </active>
-             <inactive>
-              <colorrole role="WindowText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Button">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>226</red>
-                 <green>240</green>
-                 <blue>251</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Light">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>255</green>
-                 <blue>255</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Midlight">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>240</red>
-                 <green>247</green>
-                 <blue>253</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Dark">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>113</red>
-                 <green>120</green>
-                 <blue>125</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Mid">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>151</red>
-                 <green>160</green>
-                 <blue>167</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Text">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="BrightText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>255</green>
-                 <blue>255</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="ButtonText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Base">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>226</red>
-                 <green>240</green>
-                 <blue>251</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Window">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>226</red>
-                 <green>240</green>
-                 <blue>251</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Shadow">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="AlternateBase">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>240</red>
-                 <green>247</green>
-                 <blue>253</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="ToolTipBase">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>255</green>
-                 <blue>220</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="ToolTipText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="PlaceholderText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="128">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </inactive>
-             <disabled>
-              <colorrole role="WindowText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>113</red>
-                 <green>120</green>
-                 <blue>125</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Button">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>226</red>
-                 <green>240</green>
-                 <blue>251</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Light">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>255</green>
-                 <blue>255</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Midlight">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>240</red>
-                 <green>247</green>
-                 <blue>253</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Dark">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>113</red>
-                 <green>120</green>
-                 <blue>125</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Mid">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>151</red>
-                 <green>160</green>
-                 <blue>167</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Text">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>113</red>
-                 <green>120</green>
-                 <blue>125</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="BrightText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>255</green>
-                 <blue>255</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="ButtonText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>113</red>
-                 <green>120</green>
-                 <blue>125</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Base">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>226</red>
-                 <green>240</green>
-                 <blue>251</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Window">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>226</red>
-                 <green>240</green>
-                 <blue>251</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="Shadow">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="AlternateBase">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>226</red>
-                 <green>240</green>
-                 <blue>251</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="ToolTipBase">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>255</red>
-                 <green>255</green>
-                 <blue>220</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="ToolTipText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="255">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-              <colorrole role="PlaceholderText">
-               <brush brushstyle="SolidPattern">
-                <color alpha="128">
-                 <red>0</red>
-                 <green>0</green>
-                 <blue>0</blue>
-                </color>
-               </brush>
-              </colorrole>
-             </disabled>
-            </palette>
-           </property>
-           <property name="acceptDrops">
-            <bool>false</bool>
-           </property>
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background: rgb(226, 240, 251); </string>
-           </property>
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QGridLayout" name="gridLayout">
-            <item row="0" column="2">
-             <widget class="QPushButton" name="btn_select_scan_files">
-              <property name="minimumSize">
-               <size>
-                <width>50</width>
-                <height>150</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>50</width>
-                <height>150</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Click on this button to select scan files to import</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">background-color: rgb(0, 98, 204);
+    </property>
+    <property name="title">
+     <string>Scan Drop</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <property name="leftMargin">
+      <number>4</number>
+     </property>
+     <property name="topMargin">
+      <number>4</number>
+     </property>
+     <property name="rightMargin">
+      <number>4</number>
+     </property>
+     <property name="bottomMargin">
+      <number>4</number>
+     </property>
+     <item>
+      <layout class="QGridLayout" name="grid_file_drop">
+       <item row="1" column="0">
+        <widget class="QFrame" name="frm_file_drop">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>226</red>
+               <green>240</green>
+               <blue>251</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Light">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Midlight">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>240</red>
+               <green>247</green>
+               <blue>253</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Dark">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>113</red>
+               <green>120</green>
+               <blue>125</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Mid">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>151</red>
+               <green>160</green>
+               <blue>167</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="BrightText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>226</red>
+               <green>240</green>
+               <blue>251</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>226</red>
+               <green>240</green>
+               <blue>251</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Shadow">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="AlternateBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>240</red>
+               <green>247</green>
+               <blue>253</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>220</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="128">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>226</red>
+               <green>240</green>
+               <blue>251</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Light">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Midlight">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>240</red>
+               <green>247</green>
+               <blue>253</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Dark">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>113</red>
+               <green>120</green>
+               <blue>125</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Mid">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>151</red>
+               <green>160</green>
+               <blue>167</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="BrightText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>226</red>
+               <green>240</green>
+               <blue>251</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>226</red>
+               <green>240</green>
+               <blue>251</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Shadow">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="AlternateBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>240</red>
+               <green>247</green>
+               <blue>253</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>220</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="128">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>113</red>
+               <green>120</green>
+               <blue>125</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>226</red>
+               <green>240</green>
+               <blue>251</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Light">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Midlight">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>240</red>
+               <green>247</green>
+               <blue>253</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Dark">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>113</red>
+               <green>120</green>
+               <blue>125</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Mid">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>151</red>
+               <green>160</green>
+               <blue>167</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>113</red>
+               <green>120</green>
+               <blue>125</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="BrightText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>113</red>
+               <green>120</green>
+               <blue>125</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>226</red>
+               <green>240</green>
+               <blue>251</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>226</red>
+               <green>240</green>
+               <blue>251</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Shadow">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="AlternateBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>226</red>
+               <green>240</green>
+               <blue>251</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>220</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="128">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+         <property name="acceptDrops">
+          <bool>false</bool>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background: rgb(226, 240, 251); </string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="2">
+           <widget class="QPushButton" name="btn_select_scan_files">
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>150</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>50</width>
+              <height>150</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>Click on this button to select scan files to import</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(0, 98, 204);
 color: #ffffff;
 border-radius: 15px;
 font-size:14pt;</string>
-              </property>
-              <property name="text">
-               <string>I
+            </property>
+            <property name="text">
+             <string>I
 M
 P
 O
 R
 T</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="lbl_file_drop">
-              <property name="minimumSize">
-               <size>
-                <width>200</width>
-                <height>250</height>
-               </size>
-              </property>
-              <property name="acceptDrops">
-               <bool>true</bool>
-              </property>
-              <property name="toolTip">
-               <string>Drop Scan Files onto the section to automatically parse them</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QLabel#lbl_file_drop{
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="lbl_file_drop">
+            <property name="minimumSize">
+             <size>
+              <width>200</width>
+              <height>250</height>
+             </size>
+            </property>
+            <property name="acceptDrops">
+             <bool>true</bool>
+            </property>
+            <property name="toolTip">
+             <string>Drop Scan Files onto the section to automatically parse them</string>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QLabel#lbl_file_drop{
 border: 1px dashed #3490dc;
 font-size:12px;
 background: #d2e0fb;
 font-family:Courier New;
 border-radius:15px;
 }</string>
-              </property>
-              <property name="text">
-               <string>Select multiple files with the file dialog or by dragging and dropping scan files into this region:
+            </property>
+            <property name="text">
+             <string>Select multiple files with the file dialog or by dragging and dropping scan files into this region:
 
-    .ckl        - STIG/Checklist Files
+    .ckl(b)     - STIG/Checklist Files
     .nessus     - ACAS Scan Results
     .xml        - SCAP/XCCDF Files
 
-    .csv        - Mitigation Statement Answer File
+    .csv        - Mitigation Statement, Impact Statement, and/or Resources Required Answer File
     .xlsx/.xlsm - Old POAMs for Mitigation Statements
     .xlsx/.xlsm - eMASS Test Result Exports for Control Mapping
                </string>
-              </property>
-              <property name="wordWrap">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
       </layout>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <layout class="QGridLayout" name="grid_data_points">
-      <property name="sizeConstraint">
-       <enum>QLayout::SetMinimumSize</enum>
-      </property>
-      <item row="0" column="1">
-       <widget class="QGroupBox" name="grp_data_points">
-        <property name="minimumSize">
-         <size>
-          <width>300</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>350</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QGroupBox{
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>734</width>
+      <height>360</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="grid_data_points">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMinimumSize</enum>
+     </property>
+     <item row="0" column="1">
+      <widget class="QGroupBox" name="grp_data_points">
+       <property name="minimumSize">
+        <size>
+         <width>300</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>326</width>
+         <height>400</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QGroupBox{
 background: #fbecd8;
 border:1px solid #000000;
 padding-top:10px;
 border-radius: 15px;
 }</string>
-        </property>
-        <property name="title">
-         <string>Report Options</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <item row="5" column="2">
-          <widget class="QCheckBox" name="chk_rar">
-           <property name="toolTip">
-            <string>This is a Risk Assessment Report for uploading as an artifact to eMASS</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>RAR</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="11" column="0">
-          <widget class="QCheckBox" name="chk_operating_systems">
-           <property name="toolTip">
-            <string>This report shows the count of each operating system, based on the ACAS scans parsed by the generator.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>Operating Systems</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="0">
-          <widget class="QCheckBox" name="chk_cci">
-           <property name="toolTip">
-            <string>This report shows all CCI items in an easy to search and filter format.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>CCI</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="0">
-          <widget class="QCheckBox" name="chk_local_users">
-           <property name="toolTip">
-            <string>This report shows all the local users found for each host.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>Local Users</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLineEdit" name="txt_command">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>150</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Enter the Name of the Base or Command the package belongs to.</string>
-           </property>
-           <property name="placeholderText">
-            <string>Organization Name</string>
-           </property>
-          </widget>
-         </item>
-         <item row="9" column="2">
-          <widget class="QCheckBox" name="chk_software_windows">
-           <property name="toolTip">
-            <string>This is a dump of all the windows software utilized within the package, based off the parsed ACAS Scans.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>Software - Windows</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="12" column="0">
-          <widget class="QCheckBox" name="chk_poam">
-           <property name="toolTip">
-            <string>This is the POAM that can be generated for import into eMASS</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>POAM</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="0">
-          <widget class="QCheckBox" name="chk_missing_patches">
-           <property name="toolTip">
-            <string>This report shows all patches that should be installed on specific hosts.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>Missing Patches</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QLineEdit" name="txt_poc">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>150</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Enter the Name of the main Point of Contact for the package</string>
-           </property>
-           <property name="placeholderText">
-            <string>POC Name</string>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="0">
-          <widget class="QCheckBox" name="chk_hardware">
-           <property name="toolTip">
-            <string>This report shows device information for all hosts scanned.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>Hardware</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLineEdit" name="txt_phone">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>150</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Enter the Phone Number for the main Point of Contact for the package</string>
-           </property>
-           <property name="placeholderText">
-            <string>POC Phone #</string>
-           </property>
-          </widget>
-         </item>
-         <item row="11" column="2">
-          <widget class="QCheckBox" name="chk_test_plan">
-           <property name="toolTip">
-            <string>This is a test plan that can be uploaded to eMASS</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>Test Plan</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="2">
-          <widget class="QLineEdit" name="txt_email">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>150</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>150</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="toolTip">
-            <string>Enter the Email for the main Point of Contact for the package</string>
-           </property>
-           <property name="placeholderText">
-            <string>POC Email</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QCheckBox" name="chk_acas_unique_vuln">
-           <property name="toolTip">
-            <string>This report will display all the Unique findings that were founder from all submitted ACAS scans.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>ACAS Unique Vuln</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QCheckBox" name="chk_acas_unique_iavm">
-           <property name="toolTip">
-            <string>This report will display all the Unique IAVM findings that were founder from all submitted ACAS scans.</string>
-           </property>
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>ACAS Unique IAVM</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="2">
-          <widget class="QCheckBox" name="chk_ppsm">
-           <property name="toolTip">
-            <string>This is a PPSM report based on the ACAS Scans parsed by the generator</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>PPSM</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0">
-          <widget class="QCheckBox" name="chk_asset_traceability">
-           <property name="toolTip">
-            <string>This report helps determine what specific scans were executed against each specific host.  Use this report to find out if certain hosts require additional scans.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>Asset Traceability</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="8" column="2">
-          <widget class="QCheckBox" name="chk_software_linux">
-           <property name="toolTip">
-            <string>This is a dump of all the 'linux' or 'unix' software utilized within the package, based off the parsed ACAS Scans.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>Software - Linux</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="2">
-          <widget class="QCheckBox" name="chk_scap_ckl_issues">
-           <property name="toolTip">
-            <string>This report shows discrepencies between SCAP scans and CKL Executions</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>SCAP/CKL Issues</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="2">
-          <widget class="QCheckBox" name="chk_raw_data">
-           <property name="toolTip">
-            <string>This is a Raw dump of all the scan information parsed by the generator</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>Raw Data</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="10" column="2">
-          <widget class="QCheckBox" name="chk_summary">
-           <property name="toolTip">
-            <string>This is a summary, complete with scores and finding counts, for all scans executed.</string>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background:none;</string>
-           </property>
-           <property name="text">
-            <string>Summary</string>
-           </property>
-           <property name="checked">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QGroupBox" name="grpReports">
-        <property name="minimumSize">
-         <size>
-          <width>400</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>400</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QGroupBox{
+       </property>
+       <property name="title">
+        <string>Report Options</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="8" column="2">
+         <widget class="QCheckBox" name="chk_raw_data">
+          <property name="toolTip">
+           <string>This is a Raw dump of all the scan information parsed by the generator</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Raw Data</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLineEdit" name="txt_email">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Enter the Email for the main Point of Contact for the package</string>
+          </property>
+          <property name="placeholderText">
+           <string>POC Email</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QCheckBox" name="chk_acas_unique_vuln">
+          <property name="toolTip">
+           <string>This report will display all the Unique findings that were founder from all submitted ACAS scans.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>ACAS Unique Vuln</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="2">
+         <widget class="QCheckBox" name="chk_test_plan">
+          <property name="toolTip">
+           <string>This is a test plan that can be uploaded to eMASS</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Test Plan</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="2">
+         <widget class="QCheckBox" name="chk_summary">
+          <property name="toolTip">
+           <string>This is a summary, complete with scores and finding counts, for all scans executed.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Summary</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="0">
+         <widget class="QCheckBox" name="chk_hardware">
+          <property name="toolTip">
+           <string>This report shows device information for all hosts scanned.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Hardware</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="2">
+         <widget class="QCheckBox" name="chk_software_linux">
+          <property name="toolTip">
+           <string>This is a dump of all the 'linux' or 'unix' software utilized within the package, based off the parsed ACAS Scans.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Software - Linux</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QLineEdit" name="txt_reviewed_by">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Enter name of report generator</string>
+          </property>
+          <property name="placeholderText">
+           <string>Reviewed By</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="0">
+         <widget class="QCheckBox" name="chk_cci">
+          <property name="toolTip">
+           <string>This report shows all CCI items in an easy to search and filter format.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>CCI</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLineEdit" name="txt_phone">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Enter the Phone Number for the main Point of Contact for the package</string>
+          </property>
+          <property name="placeholderText">
+           <string>POC Phone #</string>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="0">
+         <widget class="QCheckBox" name="chk_operating_systems">
+          <property name="toolTip">
+           <string>This report shows the count of each operating system, based on the ACAS scans parsed by the generator.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Operating Systems</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QCheckBox" name="chk_asset_traceability">
+          <property name="toolTip">
+           <string>This report helps determine what specific scans were executed against each specific host.  Use this report to find out if certain hosts require additional scans.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Asset Traceability</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLineEdit" name="txt_poc">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Enter the Name of the main Point of Contact for the package</string>
+          </property>
+          <property name="placeholderText">
+           <string>POC Name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QCheckBox" name="chk_acas_unique_iavm">
+          <property name="toolTip">
+           <string>This report will display all the Unique IAVM findings that were founder from all submitted ACAS scans.</string>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>ACAS Unique IAVM</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QCheckBox" name="chk_rar">
+          <property name="toolTip">
+           <string>This is a Risk Assessment Report for uploading as an artifact to eMASS</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>RAR</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="0">
+         <widget class="QCheckBox" name="chk_missing_patches">
+          <property name="toolTip">
+           <string>This report shows all patches that should be installed on specific hosts.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Missing Patches</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="2">
+         <widget class="QCheckBox" name="chk_software_windows">
+          <property name="toolTip">
+           <string>This is a dump of all the windows software utilized within the package, based off the parsed ACAS Scans.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Software - Windows</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QCheckBox" name="chk_ppsm">
+          <property name="toolTip">
+           <string>This is a PPSM report based on the ACAS Scans parsed by the generator</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>PPSM</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="2">
+         <widget class="QCheckBox" name="chk_scap_ckl_issues">
+          <property name="toolTip">
+           <string>This report shows discrepencies between SCAP scans and CKL Executions</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>SCAP/CKL Issues</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLineEdit" name="txt_system_name">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Enter the system name</string>
+          </property>
+          <property name="placeholderText">
+           <string>Security System Name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="0">
+         <widget class="QCheckBox" name="chk_local_users">
+          <property name="toolTip">
+           <string>This report shows all the local users found for each host.</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Local Users</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="0">
+         <widget class="QCheckBox" name="chk_poam">
+          <property name="toolTip">
+           <string>This is the POAM that can be generated for import into eMASS</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>POAM</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLineEdit" name="txt_command">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Enter the Name of the Base or Command the package belongs to.</string>
+          </property>
+          <property name="placeholderText">
+           <string>Organization Name</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QLineEdit" name="txt_apms_id">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>Enter APMS ID if known</string>
+          </property>
+          <property name="placeholderText">
+           <string>APMS ID</string>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="2">
+         <widget class="QCheckBox" name="chk_deviation">
+          <property name="toolTip">
+           <string>This is the deviations document</string>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background:none;</string>
+          </property>
+          <property name="text">
+           <string>Deviation</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QGroupBox" name="grpReports">
+       <property name="minimumSize">
+        <size>
+         <width>400</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>400</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QGroupBox{
 background: rgb(209, 236, 241);
 border:1px solid #000000;
 padding-top:10px;
@@ -1340,224 +1465,224 @@ QCheckBox{
 
     background: none;
 }</string>
+       </property>
+       <property name="title">
+        <string>Generator Options</string>
+       </property>
+       <widget class="QComboBox" name="cboProcIntensity">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>160</y>
+          <width>261</width>
+          <height>22</height>
+         </rect>
         </property>
-        <property name="title">
-         <string>Generator Options</string>
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
-        <widget class="QComboBox" name="cboProcIntensity">
-         <property name="geometry">
-          <rect>
-           <x>130</x>
-           <y>160</y>
-           <width>261</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <item>
-          <property name="text">
-           <string>Normal Load</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Light Load</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Make My CPU Bleed</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="lblProcessorIntensity">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>160</y>
-           <width>121</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background: none;</string>
-         </property>
+        <item>
          <property name="text">
-          <string>Processing Inensity</string>
+          <string>Normal Load</string>
          </property>
-        </widget>
-        <widget class="QCheckBox" name="chkSkipInfo">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>60</y>
-           <width>151</width>
-           <height>25</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Skip low risk/informational findings from the report outputs</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background: none;</string>
-         </property>
+        </item>
+        <item>
          <property name="text">
-          <string>Skip CAT IV (Informational)</string>
+          <string>Light Load</string>
          </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="chk_lower_risk">
-         <property name="geometry">
-          <rect>
-           <x>230</x>
-           <y>60</y>
-           <width>141</width>
-           <height>25</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Automatically lower the risk one level for all findings.  This assumes a valid mitigation statement will be provided.</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background: none;</string>
-         </property>
+        </item>
+        <item>
          <property name="text">
-          <string>Automatically Lower Risk</string>
+          <string>Make My CPU Bleed</string>
          </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="chk_prefill_scd">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>80</y>
-           <width>200</width>
-           <height>25</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="toolTip">
-          <string>Prefill a Scheduled Completion Date (SCD) based on the residual risk level for each finding.</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background: none;</string>
-         </property>
-         <property name="text">
-          <string>Prefill Scheduled Completion Date</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblExlcudePlugins">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>10</y>
-           <width>371</width>
-           <height>31</height>
-          </rect>
-         </property>
-         <property name="toolTip">
-          <string>Some commands do not require new ACAS plugins to be included in part of a package, normally plugins that have been released within the last 30 days.  Insert the number of days to 'skip' here, or enter 0 to include all plugins.</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background: none;
+        </item>
+       </widget>
+       <widget class="QLabel" name="lblProcessorIntensity">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>160</y>
+          <width>121</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: none;</string>
+        </property>
+        <property name="text">
+         <string>Processing Inensity</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="chkSkipInfo">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>60</y>
+          <width>151</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Skip low risk/informational findings from the report outputs</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: none;</string>
+        </property>
+        <property name="text">
+         <string>Skip CAT IV (Informational)</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="chk_lower_risk">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>60</y>
+          <width>141</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Automatically lower the risk one level for all findings.  This assumes a valid mitigation statement will be provided.</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: none;</string>
+        </property>
+        <property name="text">
+         <string>Automatically Lower Risk</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="chk_prefill_scd">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>80</y>
+          <width>200</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Prefill a Scheduled Completion Date (SCD) based on the residual risk level for each finding.</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: none;</string>
+        </property>
+        <property name="text">
+         <string>Prefill Scheduled Completion Date</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblExlcudePlugins">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>371</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>Some commands do not require new ACAS plugins to be included in part of a package, normally plugins that have been released within the last 30 days.  Insert the number of days to 'skip' here, or enter 0 to include all plugins.</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: none;
 </string>
-         </property>
-         <property name="text">
-          <string>Exclude ACAS Plugins Published Less Than X Days Ago: (enter 0 to disable)</string>
-         </property>
-         <property name="textFormat">
-          <enum>Qt::PlainText</enum>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QSpinBox" name="spnExcludeDays">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>40</y>
-           <width>381</width>
-           <height>18</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="maximum">
-          <number>9999</number>
-         </property>
-         <property name="value">
-          <number>30</number>
-         </property>
-        </widget>
-        <widget class="QLabel" name="lblTestResultsProcessing">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>130</y>
-           <width>121</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="toolTip">
-          <string>Add All Findings 
+        </property>
+        <property name="text">
+         <string>Exclude ACAS Plugins Published Less Than X Days Ago: (enter 0 to disable)</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QSpinBox" name="spnExcludeDays">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>381</width>
+          <height>18</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="maximum">
+         <number>9999</number>
+        </property>
+        <property name="value">
+         <number>30</number>
+        </property>
+       </widget>
+       <widget class="QLabel" name="lblTestResultsProcessing">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>130</y>
+          <width>121</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="toolTip">
+         <string>Add All Findings 
 Process as Normal and add all findings to the POAM/RAR
 
 Marked as Closed
@@ -1565,179 +1690,178 @@ If the CCI is linked to a control that is inherited or not in the package, mark 
 
 Convert to CM-6.5
 If the CCI is linked to a control that is inherited or not in the package, change control to CM-6</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background: none;</string>
-         </property>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: none;</string>
+        </property>
+        <property name="text">
+         <string>Test Result Action</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="cboTestResultFunc">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>130</y>
+          <width>261</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <item>
          <property name="text">
-          <string>Test Result Action</string>
+          <string>Add All Findings</string>
          </property>
-        </widget>
-        <widget class="QComboBox" name="cboTestResultFunc">
-         <property name="geometry">
-          <rect>
-           <x>130</x>
-           <y>130</y>
-           <width>261</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <item>
-          <property name="text">
-           <string>Add All Findings</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Mark as Closed</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Convert to CM-6.5</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QCheckBox" name="chkIncludeFindingDetails">
-         <property name="geometry">
-          <rect>
-           <x>230</x>
-           <y>80</y>
-           <width>151</width>
-           <height>25</height>
-          </rect>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
-         </property>
+        </item>
+        <item>
          <property name="text">
-          <string>Include Finding Details</string>
+          <string>Mark as Closed</string>
          </property>
-        </widget>
-        <widget class="QPlainTextEdit" name="txtPredisposingCondition">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>220</y>
-           <width>381</width>
-           <height>71</height>
-          </rect>
-         </property>
-         <property name="placeholderText">
-          <string>Enter Default Predisposing Conditions</string>
-         </property>
-        </widget>
-        <widget class="QComboBox" name="cboMitigationStatements">
-         <property name="geometry">
-          <rect>
-           <x>130</x>
-           <y>190</y>
-           <width>261</width>
-           <height>22</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <item>
-          <property name="text">
-           <string>Leave Blank</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Existing POAM or Answerfile CSV</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>CKL Comments</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>POAM/CSV, then CKL (Prefer Existing POAM/CSV)</string>
-          </property>
-         </item>
-        </widget>
-        <widget class="QLabel" name="lblMitigationStatements">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>190</y>
-           <width>121</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background: none;</string>
-         </property>
+        </item>
+        <item>
          <property name="text">
-          <string>Mitigation Statements</string>
+          <string>Convert to CM-6.5</string>
          </property>
-        </widget>
-        <widget class="QCheckBox" name="chk_show_host_details">
-         <property name="geometry">
-          <rect>
-           <x>10</x>
-           <y>100</y>
-           <width>200</width>
-           <height>25</height>
-          </rect>
+        </item>
+       </widget>
+       <widget class="QCheckBox" name="chkIncludeFindingDetails">
+        <property name="geometry">
+         <rect>
+          <x>230</x>
+          <y>80</y>
+          <width>151</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>Include Finding Details</string>
+        </property>
+       </widget>
+       <widget class="QPlainTextEdit" name="txtPredisposingCondition">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>220</y>
+          <width>381</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="placeholderText">
+         <string>Enter Default Predisposing Conditions</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="cboMitigationStatements">
+        <property name="geometry">
+         <rect>
+          <x>130</x>
+          <y>190</y>
+          <width>261</width>
+          <height>22</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <item>
+         <property name="text">
+          <string>Leave Blank</string>
          </property>
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>25</height>
-          </size>
+        </item>
+        <item>
+         <property name="text">
+          <string>Existing POAM or Answerfile CSV</string>
          </property>
-         <property name="maximumSize">
-          <size>
-           <width>16777215</width>
-           <height>25</height>
-          </size>
+        </item>
+        <item>
+         <property name="text">
+          <string>CKL Comments</string>
          </property>
-         <property name="toolTip">
-          <string>If this is checked, affected devices on the POAM and RAR tabs will show up as:
+        </item>
+        <item>
+         <property name="text">
+          <string>POAM/CSV, then CKL (Prefer Existing POAM/CSV)</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QLabel" name="lblMitigationStatements">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>190</y>
+          <width>121</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: none;</string>
+        </property>
+        <property name="text">
+         <string>Mitigation Statements</string>
+        </property>
+       </widget>
+       <widget class="QCheckBox" name="chk_show_host_details">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>100</y>
+          <width>200</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>25</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>If this is checked, affected devices on the POAM and RAR tabs will show up as:
 
 hostname [SCAN_TYPE - Ver: #, Rel/Feed: # ]
 
 If this is not checked, affected devices will only show their hostname</string>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background: none;</string>
-         </property>
-         <property name="text">
-          <string>Show Host Details</string>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-        </widget>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background: none;</string>
+        </property>
+        <property name="text">
+         <string>Show Host Details</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
        </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="mnu_main">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1400</width>
+     <width>1415</width>
      <height>21</height>
     </rect>
    </property>
@@ -2050,9 +2174,20 @@ If this is not checked, affected devices will only show their hostname</string>
     <addaction name="separator"/>
     <addaction name="actionOpen_Results"/>
    </widget>
+   <widget class="QMenu" name="menuUtil">
+    <property name="title">
+     <string>Util</string>
+    </property>
+    <addaction name="actionOpenTools"/>
+    <addaction name="separator"/>
+    <addaction name="actionLaunchVendorPortsConverter"/>
+    <addaction name="separator"/>
+    <addaction name="actionEnrich_hwsw"/>
+   </widget>
    <addaction name="mnu_file"/>
    <addaction name="menuScans"/>
    <addaction name="mnu_help"/>
+   <addaction name="menuUtil"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionSelect">
@@ -2140,12 +2275,30 @@ If this is not checked, affected devices will only show their hostname</string>
     <string>Open Results Folder</string>
    </property>
   </action>
+  <action name="actionOpenTools">
+   <property name="text">
+    <string>Open 'Tools'</string>
+   </property>
+  </action>
+  <action name="actionLaunchVendorPortsConverter">
+   <property name="text">
+    <string>Launch Vendor Ports Converter</string>
+   </property>
+  </action>
+  <action name="actionEnrich_hwsw">
+   <property name="text">
+    <string>Enrich HW/SW Report</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>txt_command</tabstop>
   <tabstop>txt_poc</tabstop>
   <tabstop>txt_phone</tabstop>
   <tabstop>txt_email</tabstop>
+  <tabstop>txt_system_name</tabstop>
+  <tabstop>txt_reviewed_by</tabstop>
+  <tabstop>txt_apms_id</tabstop>
   <tabstop>chk_acas_unique_iavm</tabstop>
   <tabstop>chk_acas_unique_vuln</tabstop>
   <tabstop>chk_asset_traceability</tabstop>
@@ -2157,6 +2310,27 @@ If this is not checked, affected devices will only show their hostname</string>
   <tabstop>btn_select_scan_files</tabstop>
   <tabstop>btn_parse_scan_files</tabstop>
   <tabstop>btn_execute</tabstop>
+  <tabstop>btnClearSelectedScans</tabstop>
+  <tabstop>btnClearScanSummary</tabstop>
+  <tabstop>chk_raw_data</tabstop>
+  <tabstop>chk_test_plan</tabstop>
+  <tabstop>chk_summary</tabstop>
+  <tabstop>chk_hardware</tabstop>
+  <tabstop>chk_software_linux</tabstop>
+  <tabstop>chk_cci</tabstop>
+  <tabstop>chk_operating_systems</tabstop>
+  <tabstop>chk_rar</tabstop>
+  <tabstop>chk_missing_patches</tabstop>
+  <tabstop>chk_software_windows</tabstop>
+  <tabstop>chk_ppsm</tabstop>
+  <tabstop>chk_scap_ckl_issues</tabstop>
+  <tabstop>chk_local_users</tabstop>
+  <tabstop>chk_poam</tabstop>
+  <tabstop>cboTestResultFunc</tabstop>
+  <tabstop>chkIncludeFindingDetails</tabstop>
+  <tabstop>txtPredisposingCondition</tabstop>
+  <tabstop>cboMitigationStatements</tabstop>
+  <tabstop>chk_show_host_details</tabstop>
  </tabstops>
  <resources/>
  <connections/>

@@ -1,1 +1,1 @@
-python -m PyInstaller scans2reports.py -D --add-data "data/dataset.json;data" --add-data "results/;results" --distpath ../dist/win32 --workpath ../build/win32
+python -m PyInstaller scans2reports.py -D --add-data "data/dataset.json;data" --add-data "data/lists.json;data" --add-data "data/vendor_ports.json;data" --add-data "results/;results" --add-data "tools/;tools" --distpath ../dist/win32 --workpath ../build/win32 

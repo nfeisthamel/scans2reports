@@ -108,7 +108,7 @@ class UiAddons():
                 extension = os.path.splitext(filepath)[1].lower()
 
                 if filepath not in filepaths:
-                    if extension in ['.ckl', '.xml', '.nessus', '.csv', '.xlsx', '.xlsm']:
+                    if extension in ['.ckl', '.cklb', '.xml', '.nessus', '.csv', '.xlsx', '.xlsm']:
                         logging.info('Adding file to queue: %s', filepath)
                         self.main_form.tbl_selected_scans.insertRow(0)
 
@@ -132,6 +132,9 @@ class UiAddons():
         self.main_app.scar_data.set('name', self.main_form.txt_poc.text() )
         self.main_app.scar_data.set('phone', self.main_form.txt_phone.text() )
         self.main_app.scar_data.set('email', self.main_form.txt_email.text() )
+        self.main_app.scar_data.set('systemname', self.main_form.txt_system_name.text() )
+        self.main_app.scar_data.set('reviewed', self.main_form.txt_reviewed_by.text() )
+        self.main_app.scar_data.set('apmsid', self.main_form.txt_apms_id.text() )
         
         self.main_app.scar_conf.set('predisposing_conditions', self.main_form.txtPredisposingCondition.toPlainText())
         self.main_app.scar_conf.set('include_finding_details', self.main_form.chkIncludeFindingDetails.isChecked())
@@ -159,7 +162,7 @@ class UiAddons():
             self.main_app.scar_conf.set('num_threads', int(psutil.cpu_count() // 2) + 1)
             self.main_app.scar_conf.set('threads', 1)
         elif self.main_form.cboProcIntensity.currentText() == 'Normal Load':
-            self.main_app.scar_conf.set('num_threads', int(psutil.cpu_count()) - 2 + 1)
+            self.main_app.scar_conf.set('num_threads', int(psutil.cpu_count(logical=True)) - 1)
             self.main_app.scar_conf.set('threads', 2)
         else:
             self.main_app.scar_conf.set('num_threads', int(psutil.cpu_count() * 2) - 1)
@@ -225,7 +228,7 @@ class UiAddons():
             application_path = sys._MEIPASS
         else:
             application_path = os.path.dirname(os.path.abspath(__file__))
-            
+           
         with open(os.path.join(application_path, "data/scan_results.pkl"), "rb") as f:
             scan_results = pickle.load(f)
 
@@ -387,6 +390,9 @@ class UiAddons():
         self.main_app.scar_data.set('name', self.main_form.txt_poc.text() )
         self.main_app.scar_data.set('phone', self.main_form.txt_phone.text() )
         self.main_app.scar_data.set('email', self.main_form.txt_email.text() )
+        self.main_app.scar_data.set('systemname', self.main_form.txt_system_name.text() )
+        self.main_app.scar_data.set('reviewed', self.main_form.txt_reviewed_by.text() )
+        self.main_app.scar_data.set('apmsid', self.main_form.txt_apms_id.text() )
 
         self.main_app.scar_conf.set('predisposing_conditions', self.main_form.txtPredisposingCondition.toPlainText())
         self.main_app.scar_conf.set('include_finding_details', self.main_form.chkIncludeFindingDetails.isChecked())
@@ -458,6 +464,9 @@ class UiAddons():
 
         if not self.main_form.chk_test_plan.isChecked():
             self.main_app.scar_conf.append('skip_reports','rpt_test_plan')
+        
+        if not self.main_form.chk_deviation.isChecked():
+            self.main_app.scar_conf.append('skip_reports','rpt_generate_deviations_workbook')
 
         self.main_app.generate_reports()
         self.main_form.btn_execute.setEnabled(True)
@@ -466,7 +475,7 @@ class UiAddons():
         logging.info('About Shown')
         msg = QtWidgets.QMessageBox()
         msg.setWindowTitle("About Scans To Reports")
-        msg.setText("Scans To Reports - Python Edition\nVersion 1.0\nCopyright (C) 2020 - Robert Weber\nhttps://cyber.trackr.live")
+        msg.setText("Scans To Reports - Python Edition\nVersion 1.6.1\nCopyright (C) 2020 - Robert Weber\nhttps://cyber.trackr.live\nUpdated by Nicolas Feisthamel\nAugust 15 2025")
         x = msg.exec_()
 
     def show_help(self):
@@ -481,10 +490,17 @@ To utilize the tool, follow the steps below:
 1 - Fill out the 'Report Data Points' if applicable to the POAM you are generating.
 2 - If the Scheduled Completion Date should be pre-filled, ensure the checkbox is checked.
 3 - If the risk should automatically be lowered due to mitigations, ensure the lower risk checkbox is checked.
-4 - Drop your selected scan files (ACAS, CKL and SCAP) on the blue area, or click the 'Select Scan Files' button.
+4 - Drop your selected scan files (ACAS, CKL(B) and SCAP) on the blue area, or click the 'Select Scan Files' button.
 5 - Once all your scans are selected, click on the green 'Parse Scan Files' button.
 6 - Once all the scans are parsed, click on the red 'Generate Report' button.
 7 - Once complete, your new file will be in the 'results' folder.
+8 - This will also generate a Mitigation, Impact, and Resource Required import template for use. You can fill these in and re-run the application to complete those fields on the POAM.
+9 - There is also a vendor-port mapping utility that can help complete the PPSM by mapping specific vendor ports to their functions. This can be accessed via the 'Utils' menu.
+10 - If applicable, a previous XLSX workbook with 'Hardware' and/or 'Software' tabs can be used to "enrich" a newly created workbook with missing values. *Use Caution*
+11 - SCAP/XCCDF files have issues importing at this time. 20250815
+12 - The update checklist function can update CKL -> CKL, CKLB -> CKLB, or CKL -> CKLB.
+13 - The standalone POAM workbook will never print CAT IV findings.
+14 - The standalone Deviations workbook will only use CKL/CKLB data, and only if the 'Deviations' have been completed in SCC.
 """)
         x = msg.exec_()
 
@@ -555,7 +571,7 @@ To utilize the tool, follow the steps below:
         self.main_form.action15_Hosts.triggered.connect( partial(self.merge_nessus, 15) )
         self.main_form.action25_Hosts.triggered.connect( partial(self.merge_nessus, 25) )
         self.main_form.action50_Hosts.triggered.connect( partial(self.merge_nessus, 50) )
-        self.main_form.actionAll_Hosts.triggered.connect( partial(self.merge_nessus, 0) )
+        self.main_form.actionAll_Hosts.triggered.connect( partial(self.merge_nessus, 1000000) )
 
         self.main_form.actionSplit_Nessus.triggered.connect( self.split_nessus )        
         
@@ -572,6 +588,80 @@ To utilize the tool, follow the steps below:
         self.main_form.actionParse_Scans.triggered.connect( self.btn_parse_scan_files_on_click )
         self.main_form.actionExecute.triggered.connect( self.btn_execute_on_click )
         self.main_form.actionExit.triggered.connect( QtCore.QCoreApplication.quit)
+        
+        self.main_form.actionLaunchVendorPortsConverter.triggered.connect(self.run_vendor_script)
+        self.main_form.actionOpenTools.triggered.connect(self.open_tools_directory)
+        self.main_form.actionEnrich_hwsw.triggered.connect(self.btn_enrich_hwsw_clicked)
+
+    def run_vendor_script(self):
+        try:
+            # Get path to tools directory relative to current script location
+            base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+            tools_path = os.path.join(base_path, "tools")
+            script_path = os.path.join(tools_path, "vendorPortsCSVtoJSON.ps1")
+
+            if platform.system().lower() == "windows":
+                subprocess.Popen(["powershell.exe", "-ExecutionPolicy", "Bypass", "-File", script_path])
+            else:
+                QtWidgets.QMessageBox.warning(None, "Not Supported", "PowerShell execution is only supported on Windows.")
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(None, "Error", f"Failed to launch script: {str(e)}")
+
+    def open_tools_directory(self):
+        try:
+            base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+            tools_path = os.path.join(base_path, "tools")
+
+            if platform.system().lower() == "windows":
+                os.startfile(tools_path)
+            elif platform.system().lower() == "darwin":
+                subprocess.Popen(["open", tools_path])
+            else:
+                subprocess.Popen(["xdg-open", tools_path])
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(None, "Error", f"Failed to open directory: {str(e)}")
+            
+    def btn_enrich_hwsw_clicked(self):
+        logging.info("User triggered: Enrich HWSW Workbook")
+
+        # Step 1: Choose prior file
+        prior_path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            None,
+            "Select OLD HWSW Workbook",
+            "",
+            "Excel Files (*.xlsx);;All Files (*)"
+        )
+        if not prior_path:
+            return
+
+        # Step 2: Choose new file
+        new_path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            None,
+            "Select NEW HWSW Workbook",
+            os.path.join(self.main_app.scar_conf.get("application_path", ""), "results"),
+            "Excel Files (*.xlsx);;All Files (*)"
+        )
+        if not new_path:
+            return
+
+        # Step 3: Choose output location
+        output_path, _ = QtWidgets.QFileDialog.getSaveFileName(
+            None,
+            "Save Enriched Workbook As",
+            os.path.join(self.main_app.scar_conf.get("application_path", ""), "results", "enriched-HWSW.xlsx"),
+            "Excel Files (*.xlsx);;All Files (*)"
+        )
+        if not output_path:
+            return
+
+        try:
+            Utils.enrich_hwsw_workbook(prior_path, new_path, output_path)
+            QtWidgets.QMessageBox.information(None, "Success", f"Enriched workbook saved:\n{output_path}")
+            logging.info(f"Enriched workbook saved to {output_path}")
+        except Exception as e:
+            QtWidgets.QMessageBox.critical(None, "Error", f"Failed to enrich workbook:\n{str(e)}")
+            logging.exception("Failed to enrich HWSW workbook")
+
 
     def update_summary_headers(self):
         logging.info('Updating Summary Headers')
@@ -651,7 +741,7 @@ class FileDrop(QtWidgets.QLabel):
                 for url in urls:
                     filepath = str(url.path())[1:]
                     extension = os.path.splitext(filepath)[1].lower()
-                    if extension in ['.ckl', '.xml', '.nessus', '.xlsx', '.csv', '.xlsm'] and filepath not in filepaths:
+                    if extension in ['.ckl', '.cklb', '.xml', '.nessus', '.xlsx', '.csv', '.xlsm'] and filepath not in filepaths:
                         filepaths.append(filepath)
 
         # preset row count in table
@@ -664,7 +754,7 @@ class FileDrop(QtWidgets.QLabel):
         current_row = 0
         for filepath in filepaths:
             extension = os.path.splitext(filepath)[1].lower()
-            if extension in ['.ckl', '.xml', '.nessus', '.xlsx', '.csv', '.xlsm']:
+            if extension in ['.ckl', '.cklb', '.xml', '.nessus', '.xlsx', '.csv', '.xlsm']:
                 btn = QtWidgets.QPushButton(self.main_form.tbl_selected_scans)
                 btn.setText('Del')
                 btn.clicked.connect(self.remove_row)

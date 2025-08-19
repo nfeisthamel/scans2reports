@@ -1,1 +1,1 @@
-python3 -m PyInstaller scans2reports.py -D --add-data "data/dataset.json:data" --add-data "results/:results" --distpath ../dist/linux --workpath ../build/linux
+python3 -m PyInstaller scans2reports.py -D --add-data "data/dataset.json:data" --add-data "data/lists.json:data" --add-data "data/vendor_ports.json:data" --add-data "results/:results" --add-data "tools/:tools" --distpath ../dist/linux --workpath ../build/linux

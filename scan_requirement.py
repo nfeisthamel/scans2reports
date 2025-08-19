@@ -28,6 +28,12 @@ class ScanRequirement(dict):
     resources = ""
     credentialed = False
     port_range = ""
+    title = ""
+    uuid = ""
+    version = ""
+    release = ""
+    stigid = ""
+    classificaion = ""
     
     def __init__(self, data):
         """ Constructor """
@@ -35,3 +41,5 @@ class ScanRequirement(dict):
         for key in data:
             if key in dir(self):
                 self[key] = data[key]
+    def get(self, key, default=None):
+        return super().get(key, default)

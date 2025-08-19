@@ -48,11 +48,14 @@ class SCARPickles(dict):
     def list(self):
         return list(self.keys())
         
-    def get(self, key):
-        if key in self.keys():
-            return self[key]
-        else:
-            return None
+    def get(self, key, default=None): 
+        return self[key] if key in self else default
+        
+    #def get(self, key, default=None):
+    #    if key in self.keys():
+    #        return self[key]
+    #    else:
+    #        return None
 
     def set(self, key, value):
         self[key] = value

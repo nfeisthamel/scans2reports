@@ -24,13 +24,16 @@ class ScanUtils():
     @staticmethod
     def update_ckl(source, destination, main_app):
         """
-        Copies the status, comments and finding details from one CKL to another
-
-        Arguments:
-            source {string} - The filepath for the original CKL file
-            destination {string} -- The filepath for the destingation CKL file
-            main_app {Object} -- A link to the main application
+        Copy STATUS / COMMENTS / FINDING_DETAILS from source to destination,
+        supporting XML (.ckl) and JSON (.cklb) in any combination.
+        Matching tries BOTH:
+          1) normalized rule_id (strip trailing '_rule')
+          2) group/vuln id (V-xxxxx)  [stable across releases]
         """
+        import json
+        from lxml import etree
+
+        # --- setup / logging (unchanged) -----------------------------------------
         if getattr(sys, 'frozen', False):
             application_path = sys._MEIPASS
         else:
@@ -40,104 +43,208 @@ class ScanUtils():
         logging.basicConfig(filename=f"{application_path}/scans2reports.log", level=logging.INFO, format=FORMAT)
         logging.info('Update CKL')
 
-        status = f"Updating {source} to {destination}"
-        logging.info(status)
-        print(status)
-
-        main_app.main_window.statusBar().showMessage(status)
-        main_app.main_window.progressBar.setValue(0)
-        QtGui.QGuiApplication.processEvents()
-
-        with open(source, 'r', errors='replace', encoding='utf-8') as content_file:
-            content = content_file.readlines()
-        start = 0
-        if '?' in content[start]:
-            start += 1
-        if '!' in content[start]:
-            start += 1
-        content = content[start:]
-        content = ''.join(content)
-        content = ''.join([i if ord(i) < 128 else ' ' for i in content])
-        source_tree = etree.fromstring( str(content) )
-
-        with open(destination, 'r', errors='replace', encoding='utf-8') as content_file:
-            content = content_file.readlines()
-        start = 0
-        if '?' in content[start]:
-            start += 1
-        if '!' in content[start]:
-            start += 1
-        content = content[start:]
-        content = ''.join(content)
-        content = ''.join([i if ord(i) < 128 else ' ' for i in content])
-        destination_tree = etree.fromstring( str(content) )
-
-        stig_id = str(next(iter(destination_tree.xpath("/CHECKLIST/STIGS/iSTIG/STIG_INFO/SI_DATA[./SID_NAME='stigid']/SID_DATA/text()")), ''))
-        version = str(next(iter(destination_tree.xpath("/CHECKLIST/STIGS/iSTIG/STIG_INFO/SI_DATA[./SID_NAME='version']/SID_DATA/text()")), ''))
-        if '.' in version:
-            version = version.split('.')[0]
-
-        if version.isdigit():
-            version = str(int(version))
-
-        release = re.search('Release: ([0-9\*.]+) Benchmark', str( next(iter(destination_tree.xpath("/CHECKLIST/STIGS/iSTIG/STIG_INFO/SI_DATA[./SID_NAME='releaseinfo']/SID_DATA/text()")), '')  ))
-        release = release.group(1) if release is not None else '0'
-        if '.' in release:
-            release = release.split('.')[1]
-
-        if release.isdigit():
-            release = str(int(release))
-
-        source_vulns = source_tree.xpath("//VULN")
-        index = 0
-        total_vulns = len(source_vulns)
-
-        for source_vuln in source_vulns:
-            index += 1
-            source_vuln_id = next(iter(source_vuln.xpath("*[./VULN_ATTRIBUTE='Vuln_Num']/ATTRIBUTE_DATA/text()")), '')
-
-            status = f"Copying {source_vuln_id} details"
-            logging.info(status)
-            print(status)
-            if main_app.main_window:
-                main_app.main_window.statusBar().showMessage(status)
-                main_app.main_window.progressBar.setValue( int( index / total_vulns * 100 ) )
-                QtGui.QGuiApplication.processEvents()
-
-            if source_vuln_id.strip() != '':
-                source_vuln_status = source_vuln.find('STATUS').text
-                source_vuln_comments = source_vuln.find('COMMENTS').text
-                source_vuln_finding_details = source_vuln.find('FINDING_DETAILS').text
-
-                destination_vuln = destination_tree.xpath( "//VULN[./STIG_DATA/ATTRIBUTE_DATA='{}']".format( source_vuln_id.strip() ) )
-                if isinstance(destination_vuln, list):
-                    destination_vuln_node = next(iter(destination_vuln), '')
-
-                    if isinstance(destination_vuln_node, etree._Element):
-                        destination_vuln_node.find('STATUS').text = source_vuln_status
-                        destination_vuln_node.find('COMMENTS').text = source_vuln_comments
-                        destination_vuln_node.find('FINDING_DETAILS').text = source_vuln_finding_details
-
-
-        ckl_name = "{}/results/{}_V{}R{}_{}.ckl".format(
-            os.path.dirname(os.path.realpath(__file__)),
-            stig_id,
-            version,
-            release,
-            (datetime.datetime.now()).strftime('%Y%m%d_%H%M%S')
-        )
-
-        destination_string = etree.tostring(destination_tree)
-        myfile = open(ckl_name, "wb")
-        myfile.write(destination_string)
-
-        print(f"Updated CKL saved to {ckl_name}")
-        status = f"Finished Updating CKL"
-        logging.info(status)
-        print(status)
+        status_msg = f"Updating {source} -> {destination}"
+        logging.info(status_msg)
+        print(status_msg)
         if main_app.main_window:
-            main_app.main_window.statusBar().showMessage(status)
-            main_app.main_window.progressBar.setValue( 0 )
+            main_app.main_window.statusBar().showMessage(status_msg)
+            main_app.main_window.progressBar.setValue(0)
+            QtGui.QGuiApplication.processEvents()
+
+        # --- helpers --------------------------------------------------------------
+        def _read_text(path):
+            with open(path, 'r', errors='replace', encoding='utf-8') as f:
+                return f.read()
+
+        def _read_xml_tree(path):
+            with open(path, 'r', errors='replace', encoding='utf-8') as f:
+                lines = f.readlines()
+            start = 0
+            if lines and '?' in lines[start]:
+                start += 1
+            if len(lines) > start and '!' in lines[start]:
+                start += 1
+            raw = ''.join(lines[start:])
+            raw = ''.join([ch if ord(ch) < 128 else ' ' for ch in raw])
+            return etree.fromstring(raw.encode('utf-8'))
+
+        def _is_json_cklb(path):
+            ext = os.path.splitext(path)[1].lower()
+            if ext != '.cklb':
+                return False
+            try:
+                with open(path, 'r', encoding='utf-8', errors='replace') as f:
+                    first = f.readline().lstrip()
+                return first.startswith('{') or first.startswith('[')
+            except:
+                return False
+
+        def _norm_rule_id(val: str) -> str:
+            """Uppercase and strip trailing '_RULE' so XML/JSON rule IDs align."""
+            if not val:
+                return ''
+            s = str(val).strip().upper()
+            if s.endswith('_RULE'):
+                s = s[:-5]
+            return s
+
+        def _norm_vuln_id(val: str) -> str:
+            return (val or '').strip().upper()
+
+        # Build: key -> {'status','comments','finding_details'}
+        # Keys include BOTH normalized rule_id and vuln_id for maximum match.
+        def _extract_from_source(path):
+            data = {}
+            if _is_json_cklb(path):
+                # JSON source
+                try:
+                    j = json.loads(_read_text(path))
+                except Exception as e:
+                    logging.error(f"Failed to read JSON CKLB source: {path}: {e}")
+                    return data
+
+                for s in j.get('stigs', []):
+                    rules = s.get('vulns') or s.get('rules', [])
+                    for r in rules:
+                        rid = r.get('rule_id') or r.get('ruleID') or r.get('ruleId') or ''
+                        gid = r.get('group_id') or r.get('vulnNum') or r.get('groupId') or ''
+                        info = {
+                            'status': (r.get('status') or '').strip(),
+                            'comments': r.get('comments') or '',
+                            'finding_details': r.get('finding_details') or '',
+                        }
+                        for k in { _norm_rule_id(rid), _norm_vuln_id(gid) } - {''}:
+                            data[k] = info
+            else:
+                # XML source
+                try:
+                    tree = _read_xml_tree(path)
+                except Exception as e:
+                    logging.error(f"Failed to read XML CKL source: {path}: {e}")
+                    return data
+
+                for v in tree.xpath("//VULN"):
+                    rid = next(iter(v.xpath("*[./VULN_ATTRIBUTE='Rule_ID']/ATTRIBUTE_DATA/text()")), '')
+                    gid = next(iter(v.xpath("*[./VULN_ATTRIBUTE='Vuln_Num']/ATTRIBUTE_DATA/text()")), '')
+                    info = {
+                        'status': next(iter(v.xpath("./STATUS/text()")), '') or '',
+                        'comments': next(iter(v.xpath("./COMMENTS/text()")), '') or '',
+                        'finding_details': next(iter(v.xpath("./FINDING_DETAILS/text()")), '') or '',
+                    }
+                    for k in { _norm_rule_id(rid), _norm_vuln_id(gid) } - {''}:
+                        data[k] = info
+            return data
+
+        # Apply to destination; return (updated_obj, total, matched)
+        def _apply_to_destination(path, source_map):
+            total = 0
+            matched = 0
+
+            if _is_json_cklb(path):
+                # JSON destination
+                try:
+                    j = json.loads(_read_text(path))
+                except Exception as e:
+                    logging.error(f"Failed to read JSON CKLB destination: {path}: {e}")
+                    return None, total, matched
+
+                rulesets = j.get('stigs', [])
+                total = sum(len(s.get('vulns') or s.get('rules', [])) for s in rulesets)
+
+                done = 0
+                for s in rulesets:
+                    rules = s.get('vulns') or s.get('rules', [])
+                    for r in rules:
+                        if main_app.main_window and total:
+                            done += 1
+                            main_app.main_window.progressBar.setValue(int(done/total*100))
+                            QtGui.QGuiApplication.processEvents()
+
+                        rid = r.get('rule_id') or r.get('ruleID') or r.get('ruleId') or ''
+                        gid = r.get('group_id') or r.get('vulnNum') or r.get('groupId') or ''
+                        candidates = [_norm_rule_id(rid), _norm_vuln_id(gid)]
+
+                        hit = next((k for k in candidates if k and k in source_map), None)
+                        if hit:
+                            info = source_map[hit]
+                            r['status'] = info.get('status', r.get('status', ''))
+                            r['comments'] = info.get('comments', r.get('comments', ''))
+                            r['finding_details'] = info.get('finding_details', r.get('finding_details', ''))
+                            matched += 1
+
+                return j, total, matched
+
+            else:
+                # XML destination
+                try:
+                    tree = _read_xml_tree(path)
+                except Exception as e:
+                    logging.error(f"Failed to read XML CKL destination: {path}: {e}")
+                    return None, total, matched
+
+                vulns = tree.xpath("//VULN")
+                total = len(vulns)
+                done = 0
+
+                for v in vulns:
+                    if main_app.main_window and total:
+                        done += 1
+                        main_app.main_window.progressBar.setValue(int(done/total*100))
+                        QtGui.QGuiApplication.processEvents()
+
+                    rid = next(iter(v.xpath("*[./VULN_ATTRIBUTE='Rule_ID']/ATTRIBUTE_DATA/text()")), '')
+                    gid = next(iter(v.xpath("*[./VULN_ATTRIBUTE='Vuln_Num']/ATTRIBUTE_DATA/text()")), '')
+                    candidates = [_norm_rule_id(rid), _norm_vuln_id(gid)]
+
+                    hit = next((k for k in candidates if k and k in source_map), None)
+                    if hit:
+                        info = source_map[hit]
+                        for tag in ('STATUS', 'COMMENTS', 'FINDING_DETAILS'):
+                            node = v.find(tag)
+                            if node is None:
+                                node = etree.SubElement(v, tag)
+                            node.text = info.get(tag.lower(), node.text or '')
+                        matched += 1
+
+                return tree, total, matched
+
+        # --- run -----------------------------------------------------------------
+        src_map = _extract_from_source(source)
+        updated_dest, total_items, matched_items = _apply_to_destination(destination, src_map)
+
+        if updated_dest is None:
+            msg = "Update failed: could not parse destination."
+            logging.error(msg)
+            print(msg)
+            if main_app.main_window:
+                main_app.main_window.statusBar().showMessage(msg)
+                main_app.main_window.progressBar.setValue(0)
+                QtGui.QGuiApplication.processEvents()
+            return
+
+        # Build output path in results/, keep destination extension
+        results_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'results')
+        os.makedirs(results_dir, exist_ok=True)
+        base = os.path.splitext(os.path.basename(destination))[0]
+        ext = os.path.splitext(destination)[1]
+        stamp = (datetime.datetime.now()).strftime('%Y%m%d_%H%M%S')
+        out_path = os.path.join(results_dir, f"{base}_updated_{stamp}{ext}")
+
+        # Write back
+        if _is_json_cklb(destination):
+            with open(out_path, 'w', encoding='utf-8') as f:
+                json.dump(updated_dest, f, ensure_ascii=False, indent=2)
+        else:
+            with open(out_path, 'wb') as f:
+                f.write(etree.tostring(updated_dest))
+
+        print(f"Updated checklist saved to {out_path} ({matched_items}/{total_items} items updated)")
+        done_msg = "Finished Updating CKL"
+        logging.info(done_msg)
+        print(done_msg)
+        if main_app.main_window:
+            main_app.main_window.statusBar().showMessage(done_msg)
+            main_app.main_window.progressBar.setValue(0)
             QtGui.QGuiApplication.processEvents()
 
 
@@ -208,6 +315,13 @@ class ScanUtils():
             application_path = sys._MEIPASS
         else:
             application_path = os.path.dirname(os.path.abspath(__file__))
+            
+        if not isinstance(host_count, int) or host_count <= 0:
+            status = "Error: host_count must be a positive integer greater than zero."
+            Utils.update_status(application_path, main_app, status, 0)
+            logging.error(status)
+            print(status)
+            return
 
         policies = {}
         
@@ -219,6 +333,7 @@ class ScanUtils():
         total_files = len(files)
         current_file = 0
         for file in files:
+            
             current_file += 1
         
             status = "Processing file {}".format(file)
@@ -232,9 +347,14 @@ class ScanUtils():
                 QtGui.QGuiApplication.processEvents()
                 
             with open(file, 'r', errors='replace', encoding='utf-8') as content_file:
-                content = content_file.readlines()
-            content = ''.join(content)
-            tree = etree.fromstring( str(content ) )
+                content = content_file.read()
+                # Strip .nessus encoding if found
+                if content.startswith('<?xml'):
+                    content = content[content.find('?>') + 2:].lstrip()
+                tree = etree.fromstring(content.encode('utf-8'))
+                # content = content_file.readlines()
+            # content = ''.join(content)
+            # tree = etree.fromstring( str(content ) )
 
             #get the current files policy name and policy definition            
             version_check = tree.xpath("/NessusClientData_v2/Policy/policyName/text()")
@@ -323,5 +443,21 @@ class ScanUtils():
     
         status = "Merged Nessus File(s) are in results folder"
         Utils.update_status(application_path, main_app, status, 0 )
-        print(status)    
-        
+        print(status)
+
+    @staticmethod
+    def clean_ip(ip_raw):
+        """Strip CIDR notation from IP address"""
+        if not ip_raw:
+            return ''
+        return ip_raw.strip().split('/')[0]
+
+    @staticmethod
+    def clean_mac(mac_raw):
+        """Sanitize and format a MAC address to colon-separated format"""
+        if not mac_raw:
+            return ''
+        hex_str = re.sub(r'[^0-9a-fA-F]', '', mac_raw)
+        if len(hex_str) < 12:
+            return ''
+        return ':'.join(hex_str[i:i+2] for i in range(0, 12, 2)).upper()

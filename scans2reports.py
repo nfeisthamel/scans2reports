@@ -58,7 +58,7 @@ class Scans2Reports:
         self.scar_data = SCARPickles('scar_data')
 
         FORMAT = "[%(asctime)s ] %(levelname)s - %(filename)s; %(lineno)s: %(name)s.%(module)s.%(funcName)s(): %(message)s"
-        logging.basicConfig(filename=f"{self.scar_conf.get('application_path')}/scans2reports.log", level=logging.INFO, format=FORMAT)
+        logging.basicConfig(filename=f"{self.scar_conf.get('application_path')}/scans2reports.log", level=logging.DEBUG, format=FORMAT)
         logging.info('Started')
 
         if args.gui or args.input_folder is None:
@@ -69,6 +69,7 @@ class Scans2Reports:
             self.scar_conf.set('operating_mode','console')
 
         logging.info('Application Path: %s', self.scar_conf.get('application_path'))
+        logging.debug('Application Path: %s', self.scar_conf.get('application_path'))
 
 
         if args.exclude_plugins == 0:
@@ -121,7 +122,7 @@ class Scans2Reports:
 
         if args.threads == 0:
             if self.scar_conf.get('num_threads') is None:
-                self.scar_conf.set('num_threads', int(psutil.cpu_count()) - 2 + 1)
+                self.scar_conf.set('num_threads', int(psutil.cpu_count(logical=True)) - 1)
 
             if self.scar_conf.get('threads') is None:
                 self.scar_conf.set('threads', 2)
@@ -234,6 +235,20 @@ class Scans2Reports:
         
         self.scar_data.set('mitigations', {'mitigations':mitigations,'type':'Mitigations'})
         
+        impacts = []
+        for impact_bundle in [i for i in self.scan_results if isinstance(i, dict) and i.get('type') == 'ImpactDescriptions']:
+            for impact_row in impact_bundle.get('impacts', []):
+                impacts.append(impact_row)
+
+        self.scar_data.set('impacts', {'impacts': impacts, 'type': 'ImpactDescriptions'})
+        
+        resources = []
+        for resource_bundle in [i for i in self.scan_results if isinstance(i, dict) and i.get('type') == 'ResourcesRequired']:
+            for resource_row in resource_bundle.get('resources', []):
+                resources.append(resource_row)
+
+        self.scar_data.set('resources', {'resources': resources, 'type': 'ResourcesRequired'})
+        
         #gather scan results from parsed files
         self.scan_results = [ i for i in self.scan_results if type(i) == ScanFile ]
 
@@ -275,7 +290,7 @@ class Scans2Reports:
                     extension = os.path.splitext(file)[1]
                     if 'xccdf' in str(file).lower() and extension == '.xml':
                         data = scan_parser.parseScap(file)
-                    elif extension == '.ckl':
+                    elif extension in ['.ckl', '.cklb']:
                         data = scan_parser.parseCkl(file)
                     elif extension == '.nessus':
                         data = scan_parser.parseNessus(file)
@@ -314,8 +329,9 @@ class Scans2Reports:
         """ After all scan files are parsed, begin generating Excel Tabs """
         logging.info('Generating Reports')
 
-        reports = Reports(main_app.main_window)
 
+        reports = Reports(main_app.main_window)
+        logging.info(f"Skip Reports: {reports.scar_conf.get('skip_reports')}")
         total_reports = list(filter(lambda x: x.startswith('rpt'), dir(reports)))
         index = 0
         for report in total_reports:
@@ -330,10 +346,43 @@ class Scans2Reports:
             getattr(reports, report)()
 
         reports.close_workbook()
-
+        
+        
+        # Step 3 - Check if all 4 reports were built
+        
+        if (
+            '(U) Lists' in reports.generated_sheets and
+            'Hardware' in reports.generated_sheets and
+            (
+                'Software - Windows' in reports.generated_sheets or
+                'Software - Linux' in reports.generated_sheets
+            )
+        ):
+            reports.generate_HWSW_workbook()
+            logging.info('Generating HWSW Report')
+            reports.close_hwsw_workbook()
+            
+        if (
+            'PPSM' in reports.generated_sheets
+            
+        ):
+            
+            reports.generate_ppsm_workbook()
+            logging.info('Generating PPS Report')
+            reports.close_ppsm_workbook()
+            
+        if (
+            'POA&M' in reports.generated_sheets
+        ):
+            
+            reports.generate_poam_workbook()
+            logging.info('Generating POAM Workbook')
+            reports.close_poam_workbook()
+         
         status = f"Report Generated"
         logging.info(status)
         print(status)
+        self.scar_conf.set('skip_reports', [])
         if main_app.main_window:
             main_app.main_window.statusBar().showMessage(status)
             main_app.main_window.progressBar.setValue( 0 )
@@ -370,10 +419,13 @@ optional.add_argument('--test-results', help='Add, Close or Convert CCI Mismatch
 optional.add_argument('-t', '--threads', help='How intensive should the generator run (1-3).  Defaults to 2.', type=int, default=0)
 optional.add_argument('-x', '--exclude-plugins', help='Exclude plugins newer than this number of days.  Defaults to 30.', type=int, default=0)
 
-optional.add_argument('-c', '--command', help='Add Responsible Command/Organization Caption to POAM')
-optional.add_argument('-e', '--email', help='Add POC Email Address to POAM')
-optional.add_argument('-n', '--name', help='Add POC Name to POAM')
-optional.add_argument('-p', '--phone', help='Add POC Phone Number to POAM')
+optional.add_argument('-c', '--command', help='Add Responsible Command/Organization Caption to Header')
+optional.add_argument('-e', '--email', help='Add POC Email Address to Header')
+optional.add_argument('-n', '--name', help='Add POC Name to Header')
+optional.add_argument('-p', '--phone', help='Add POC Phone Number to Header')
+optional.add_argument('-sysn', '--systemname', help='Add System Name to Header')
+optional.add_argument('-r', '--reviewed', help='Add Reviewed By to Header')
+optional.add_argument('-a', '--apmsid', help='Add APMS ID to Header')
 
 optional.add_argument('-h', '--help', action='help', default=SUPPRESS, help='show this help message and exit')
 

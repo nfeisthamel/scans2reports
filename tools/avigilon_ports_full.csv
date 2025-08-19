@@ -1,0 +1,32 @@
+vendor,port_range,ports,protocol,direction,origin_ips,dest_ips,service,notes
+Avigilon,51000-55000,,udp,both,,192.168.1.10,Avigilon Server Media Streaming Listener (RTP/RTCP),Avigilon Server Media Streaming Listener (RTP/RTCP)
+Avigilon,51000-55000,,udp,both,,"192.168.1.20-192.168.1.24,192.168.6.254",Avigilon Client Media Streaming Listener (RTP/RTCP),Avigilon Client Media Streaming Listener (RTP/RTCP)
+Avigilon,,38880,tcp,both,,192.168.1.10,Avigilon Server API Listener (Legacy) Listener,Avigilon Server API Server Listener (Legacy) Listener
+Avigilon,,38880,tcp,outbound,"192.168.1.20-192.168.1.24,192.168.6.254",192.168.1.10,Avigilon Client API Connector (Legacy),Avigilon Client connection to server (legacy)
+Avigilon,,38881,tcp,both,,192.168.1.10,Avigilon-API and Media Streaming Listener,Avigilon Server API and Media Gateway Listener
+Avigilon,,38881,tcp,outbound,"192.168.1.20-192.168.1.24,192.168.6.254",192.168.1.10,Avigilon-API and Media Streaming,Avigilon Client connection for video streaming
+Avigilon,,38882,udp,both,,192.168.1.10,Avigilon Server Clustering Listener,Avigilon Server Clustering
+Avigilon,,38883,udp,both,,192.168.1.10,Avigilon Server Discovery Listener,Avigilon Server Discovery
+Avigilon,,38883,udp,inbound,,"192.168.1.20-192.168.1.24,192.168.6.254",Avigilon Server Discovery,Avigilon Client side server discovery
+Avigilon,,38884,udp,inbound,,192.168.1.10,Avigilon Device Time Sync,Avigilon (Server) Device Time Sync
+Avigilon,,38980,tcp,both,,192.168.1.10,Avigilon Server Database Replication Listener,Avigilon Server Database Replication Listener
+Avigilon,,38981,tcp,both,,192.168.1.10,Avigilon Server Database Listener,Avigilon Server Database Listener
+Avigilon,,38982,tcp,both,,192.168.1.10,Avigilon Server Clustering (Gossip) Listener,Avigilon Server Clustering (Gossip) Listener
+Avigilon,,38983,tcp,both,,192.168.1.10,Avigilon Server Clustering (MQTT) Listener,Avigilon Server Clustering (MQTT) Listener
+Avigilon,,38984,tcp,both,,192.168.1.10,Avigilon Server TLS Listener,Avigilon Server TLS Listener
+Avigilon,,3702,udp,both,,192.168.1.10,Onvif Device Discovery Listener,Onvif Device Discovery Listener
+Avigilon,,59595,udp,inbound,,192.168.1.10,Pelco Device Driver (SOAP) Listener,Pelco Device Driver (SOAP)Listener
+Avigilon,,8443,tcp,inbound,,192.168.1.10,Avigilon Server REST API Web Endpoint Listener,Server API Web Endpoint
+Avigilon,,1900,udp,both,,192.168.1.10,Avigilon Appliance (Only) Web Endpoint Listener (SSDP Clients),Avigilon Appliance (Only) Web Endpoint Listener
+Avigilon,49152-65535,,tcp,inbound,192.168.1.10,"192.168.1.20-192.168.1.24,192.168.6.254",Avigilon SSDP Web Endpoint (Windows Only) Listener,Server Side listener
+Avigilon,49152-65535,,udp,inbound,,"192.168.1.20-192.168.1.24,192.168.6.254",Avigilon Client SSDP Web Endpoint (Windows Only) Connector,Server Client Side Connector
+Avigilon,,49152,tcp,inbound,,192.168.1.10,Avigilon Server Web Endpoint (SSDP) Listener,Avigilon Server Web Endpoint (SSDP) Listener
+Avigilon,,5353,udp,inbound,,192.168.1.10,Avigilon Server Web Endpoint (Bonjour) Listener,Avigilon Server Web Endpoint (Bonjour) Listener
+Avigilon,,443,tcp,outbound,192.168.1.10,192.168.1.30-192.168.1.44,Avigilon HTTPS Streamining,Camera to server
+Avigilon,55000-65535,,udp,both,,192.168.1.10,Avigilon VMS Daemon Service Listener,VMSDaemon Service Listener on Server
+Avigilon,,443,tcp,inbound,,192.168.1.30-192.168.1.44,HTTPS device service listening port,For cameras
+Avigilon,,80,tcp,inbound,,192.168.1.30-192.168.1.44,HTTP device service listening port,For cameras
+Avigilon,,554,tcp,inbound,,192.168.1.30-192.168.1.44,RTSP device service listening port,For cameras
+Avigilon,,555,tcp,inbound,,192.168.1.30-192.168.1.44,RTSP replay port,For cameras
+Avigilon,,322,tcp,both,,192.168.1.30-192.168.1.44,RTSPS,For cameras
+Avigilon,,9090,tcp,both,,192.168.1.30-192.168.1.44,Avigion Direct Streaming - WebRTC,For cameras

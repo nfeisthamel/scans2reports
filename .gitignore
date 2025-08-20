@@ -4,6 +4,7 @@
 *.pkl
 
 venv/
+.venv-release-*/
 
 # Generic backups/duplicates
 * - backup.*

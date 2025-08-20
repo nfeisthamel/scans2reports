@@ -14,6 +14,6 @@
 *.yml  eol=lf
 *.ui   eol=lf
 *.txt  eol=lf
-
+*.spec eol=lf
 *.yaml eol=lf
 

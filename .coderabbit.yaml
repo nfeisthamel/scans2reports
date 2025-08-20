@@ -1,24 +1,21 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 language: en-US
-
 
 reviews:
   profile: chill
   high_level_summary: true
-
   commit_status: true
   fail_commit_status: false
-
   auto_review:
     enabled: true
     drafts: false
-    base_branches:
-      - master
-
+    base_branches: [master]
   changed_files_summary: true
   sequence_diagrams: false
   suggested_labels: true
   auto_apply_labels: false
 
+  # review guidance by path
   path_instructions:
     - path: "**/*.py"
       instructions: |
@@ -41,17 +38,26 @@ reviews:
       instructions: |
         Treat as generated UI; avoid refactor suggestions unless for correctness/security.
 
-  finishing_touches:
-    docstrings:
-      enabled: true
-      path_instructions:
-        - path: "**/*.py"
-          instructions: |
-            Use Google-style docstrings. Document params, returns, side effects, and examples for public functions.
-    unit_tests:
-      enabled: false
+# docstring generator rules
+code_generation:
+  docstrings:
+    path_instructions:
+      - path: "**/*.py"
+        instructions: |
+          Use Google-style docstrings. Document params, returns, side effects, and examples.
+  unit_tests:
+    # (leave empty or add path_instructions later if you want)
+    path_instructions: []
 
-  pre_merge_checks:
-    docstrings:
-      mode: warning
-      threshold: 70
+# UI toggles for finishing touches
+finishing_touches:
+  docstrings:
+    enabled: true
+  unit_tests:
+    enabled: false
+
+# pre-merge docstring coverage check
+pre_merge_checks:
+  docstrings:
+    mode: warning
+    threshold: 70

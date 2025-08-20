@@ -1,0 +1,19 @@
+﻿# Normalize text: keep LF in repo
+* text=auto eol=lf
+
+# Windows script files keep CRLF in working copy
+*.cmd eol=crlf
+*.bat eol=crlf
+*.ps1 eol=crlf
+
+# Common project files that should be LF in working copy
+*.sh   eol=lf
+*.py   eol=lf
+*.md   eol=lf
+*.json eol=lf
+*.yml  eol=lf
+*.ui   eol=lf
+*.txt  eol=lf
+
+*.yaml eol=lf
+

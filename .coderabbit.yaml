@@ -1,1 +1,57 @@
-﻿
+
+language: en-US
+
+reviews:
+  profile: chill
+  high_level_summary: true
+
+  commit_status: true
+  fail_commit_status: false
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - master
+
+  changed_files_summary: true
+  sequence_diagrams: false
+  suggested_labels: true
+  auto_apply_labels: false
+
+  path_instructions:
+    - path: "**/*.py"
+      instructions: |
+        Prioritize correctness, performance, and robustness for large file/scan parsing.
+        Flag O(N^2) loops; prefer hashing/joins for host/IP/MAC dedupe.
+        Validate untrusted inputs (XML/JSON); never crash on missing keys.
+        Prefer pathlib, context managers, and explicit UTF-8.
+
+    - path: "scan_parser.py"
+      instructions: |
+        Critical parser: ensure idempotent merges of hosts scanned under multiple IPs (plugin 55472 hostname unification).
+        Call out fragile regexes; prefer streaming/iterative parsing over full-file loads.
+
+    - path: "**/*.ps1"
+      instructions: |
+        Target PowerShell 7; use -ErrorAction Stop and try/catch.
+        Avoid implicit output; validate parameters and quoting.
+
+    - path: "**/*.ui"
+      instructions: |
+        Treat as generated UI; avoid refactor suggestions unless for correctness/security.
+
+  finishing_touches:
+    docstrings:
+      enabled: true
+      path_instructions:
+        - path: "**/*.py"
+          instructions: |
+            Use Google-style docstrings. Document params, returns, side effects, and examples for public functions.
+    unit_tests:
+      enabled: false
+
+  pre_merge_checks:
+    docstrings:
+      mode: warning
+      threshold: 70

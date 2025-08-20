@@ -8,7 +8,7 @@ This is an updated version of the original project by Robert Weber (CyberSecDef)
 
 This version of scans2reports has updated report generation, scan ingestion handling, parsing logic, and enhanced features. It still generates the original (slightly modified) style of reports for those of you who are used to them, but will now create specific workbooks for the POA&M, Hardware/Software Lists, and Ports Protocols and Services reports. Along with this, it automatically generates answerfiles for dynamically selected vulnerabilities from the POA&M report. Those can be filled in and used in a subsequent parsing run to complete this missing POA&M columns. Additionally, the PPSM report can be automatically completed by utilizing a "Vendor ports" CSV file. This file starts out as a JSON file that can be converted using the included vendorPortsCSVtoJSON.ps1 script, or by just making a compatible CSV file. If you have a system that uses specific ports for specific services, you can input that information along with who talks to who (ip-ip communication lines) and import that durring the parse. 
 
-Major Changes:
+- Major Changes:
     - Updates:
         - Addition of new Report Header fields
         - Addition of new Tools dirctory and Utilities (Utilities accesable via 'Util' menu)

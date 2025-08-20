@@ -5,3 +5,7 @@
 
 venv/
 
+# Generic backups/duplicates
+* - backup.*
+* - Copy.*
+*_backup.*

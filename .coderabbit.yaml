@@ -1,32 +1,23 @@
-﻿# Global defaults
-language: en-US
+﻿language: en-US
 
 reviews:
-  # Tone: 'chill' (lighter) or 'assertive' (more nitpicky)
   profile: chill
-
-  # Add/update a “Summary by CodeRabbit” in the PR description
   high_level_summary: true
 
-  # Emit a commit/PR status so you can require it in branch protection
   commit_status: true
-  # If you want a failing check when CR can't review (optional):
   fail_commit_status: false
 
-  # Auto-review behavior
   auto_review:
-    enabled: true         # review all PRs by default
-    drafts: false         # skip drafts unless you want early feedback
+    enabled: true
+    drafts: false
     base_branches:
-      - master            # only PRs targeting master (your default) :contentReference[oaicite:1]{index=1}
+      - master
 
-  # Useful extras in the walkthrough comment
   changed_files_summary: true
   sequence_diagrams: false
-  suggested_labels: true  # suggests labels in comments (kept off for auto-apply)
+  suggested_labels: true
   auto_apply_labels: false
 
-  # Repository-specific guidance: helps CR focus on what *you* care about
   path_instructions:
     - path: "**/*.py"
       instructions: |
@@ -34,30 +25,31 @@ reviews:
         Flag O(N^2) loops; prefer hashing/joins for host/IP/MAC dedupe.
         Validate untrusted inputs (XML/JSON); never crash on missing keys.
         Prefer pathlib, context managers, and explicit UTF-8.
+
     - path: "scan_parser.py"
       instructions: |
         Critical parser: ensure idempotent merges of hosts scanned under multiple IPs (plugin 55472 hostname unification).
-        Call out fragile regexes, and recommend streaming/iterative parsing over full-file loads.
+        Call out fragile regexes; prefer streaming/iterative parsing over full-file loads.
+
     - path: "**/*.ps1"
       instructions: |
-        Target PowerShell 7 compatibility; use -ErrorAction Stop and try/catch.
+        Target PowerShell 7; use -ErrorAction Stop and try/catch.
         Avoid implicit output; validate parameters and quoting.
+
     - path: "**/*.ui"
       instructions: |
-        Treat as generated UI; avoid refactor suggestions unless correctness/security.
-  
-  # “Finishing touches” generators (docstrings/tests)
+        Treat as generated UI; avoid refactor suggestions unless for correctness/security.
+
   finishing_touches:
     docstrings:
       enabled: true
       path_instructions:
         - path: "**/*.py"
           instructions: |
-            Use Google-style docstrings. Document params, return types, side effects, and examples for public functions.
+            Use Google-style docstrings. Document params, returns, side effects, and examples for public functions.
     unit_tests:
-      enabled: false  # flip to true later if you want AI-proposed tests
+      enabled: false
 
-  # Light enforcement for docs (warning only to start)
   pre_merge_checks:
     docstrings:
       mode: warning

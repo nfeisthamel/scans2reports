@@ -108,3 +108,5 @@
 * [ Fixes #100 ] ( http://github.com/CyberSecDef/scans2reports/commit/c36f3bf1e828aa01bab9001f04d847e228c6edba)
 * [ Fixes #99 ] ( http://github.com/CyberSecDef/scans2reports/commit/94afc838c51dadfd9378e6060d980c1a7cbe4f10)
 * [ Fixes #99 ] ( http://github.com/CyberSecDef/scans2reports/commit/41927b38234791818bef2b598f7e21485a90526a)
+## [1.6.1] - 20250820
+### Local updated brought current, readme includes major changes.

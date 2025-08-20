@@ -53,10 +53,34 @@ class ScanUtils():
 
         # --- helpers --------------------------------------------------------------
         def _read_text(path):
+            """
+            Read and return the entire text contents of a file.
+            
+            Reads the file at `path` using UTF-8 encoding and `errors='replace'` (invalid bytes are replaced),
+            returning the full contents as a single string.
+            
+            Returns:
+                str: File contents.
+            """
             with open(path, 'r', errors='replace', encoding='utf-8') as f:
                 return f.read()
 
         def _read_xml_tree(path):
+            """
+            Parse an XML file into an lxml Element, skipping leading XML declaration/DOCTYPE lines and stripping non-ASCII characters.
+            
+            The file at `path` is read as UTF-8 (errors replaced). If the first line contains a '?' (typical XML declaration) it is skipped; if the following line contains '!' (typical DOCTYPE) it is also skipped. All non-ASCII characters are replaced with spaces before parsing. Returns the root Element produced by lxml.etree.fromstring.
+            
+            Parameters:
+                path (str): Filesystem path to the XML file.
+            
+            Returns:
+                lxml.etree._Element: Parsed XML root element.
+            
+            Raises:
+                OSError: If the file cannot be read.
+                lxml.etree.XMLSyntaxError: If the cleaned input cannot be parsed as XML.
+            """
             with open(path, 'r', errors='replace', encoding='utf-8') as f:
                 lines = f.readlines()
             start = 0
@@ -69,6 +93,20 @@ class ScanUtils():
             return etree.fromstring(raw.encode('utf-8'))
 
         def _is_json_cklb(path):
+            """
+            Return True if the file at `path` appears to be a JSON-format CKLB file.
+            
+            Checks that the file extension is ".cklb" (case-insensitive) and that the first non-whitespace
+            character of the first line is "{" or "[". Reads the file using UTF-8 with replacement for
+            invalid bytes; any I/O or parsing error results in False.
+            
+            Parameters:
+                path (str): Path to the candidate CKLB file.
+            
+            Returns:
+                bool: True when the file extension is ".cklb" and the file content begins with a JSON
+                object/array delimiter; otherwise False.
+            """
             ext = os.path.splitext(path)[1].lower()
             if ext != '.cklb':
                 return False
@@ -80,7 +118,11 @@ class ScanUtils():
                 return False
 
         def _norm_rule_id(val: str) -> str:
-            """Uppercase and strip trailing '_RULE' so XML/JSON rule IDs align."""
+            """
+            Normalize a rule identifier by uppercasing, trimming whitespace, and removing a trailing '_RULE'.
+            
+            If val is falsy, returns an empty string. Leading/trailing whitespace is stripped, the result is converted to uppercase, and a trailing suffix '_RULE' (if present) is removed to allow consistent matching between XML and JSON rule IDs.
+            """
             if not val:
                 return ''
             s = str(val).strip().upper()
@@ -89,11 +131,36 @@ class ScanUtils():
             return s
 
         def _norm_vuln_id(val: str) -> str:
+            """
+            Normalize a vulnerability identifier by trimming whitespace and converting to uppercase.
+            
+            Parameters:
+                val (str | None): Vulnerability identifier to normalize; None is treated as an empty string.
+            
+            Returns:
+                str: The trimmed, uppercased identifier, or an empty string if the input was falsy.
+            """
             return (val or '').strip().upper()
 
         # Build: key -> {'status','comments','finding_details'}
         # Keys include BOTH normalized rule_id and vuln_id for maximum match.
         def _extract_from_source(path):
+            """
+            Extract status, comments, and finding_details from a CKL/CKLB source file into a mapping keyed by normalized rule or vuln identifiers.
+            
+            Supports either JSON CKLB (.cklb) or XML CKL (.ckl) input. For each vuln/rule found the function builds an info dict with the string fields:
+            - 'status' : status text (trimmed)
+            - 'comments' : comments text
+            - 'finding_details' : finding details text
+            
+            Two keys are generated per item when available: a normalized rule_id and a normalized vuln_id; empty keys are ignored and the last occurrence wins for a given key.
+            
+            Parameters:
+                path (str): Filesystem path to the source CKL (.ckl) or CKLB (.cklb) file.
+            
+            Returns:
+                dict: Mapping from normalized identifier (str) to info dict described above. If the file cannot be read or parsed the function logs an error and returns an empty (or partially populated) mapping.
+            """
             data = {}
             if _is_json_cklb(path):
                 # JSON source
@@ -137,6 +204,32 @@ class ScanUtils():
 
         # Apply to destination; return (updated_obj, total, matched)
         def _apply_to_destination(path, source_map):
+            """
+            Apply status, comments, and finding details from a source mapping to a CKL/CKLB destination file.
+            
+            This reads the destination at `path` (JSON .cklb or XML .ckl), finds matching findings by
+            normalized rule ID or vuln ID, and updates each matched entry with values from `source_map`.
+            When the destination is JSON, a parsed dictionary is returned with updates applied.
+            When the destination is XML, an lxml tree is returned with updated/created STATUS, COMMENTS,
+            and FINDING_DETAILS elements.
+            
+            Parameters:
+                path (str): Filesystem path to the destination CKL (.ckl XML) or CKLB (.cklb JSON) file.
+                source_map (dict): Mapping keyed by normalized rule/vuln IDs to dicts containing
+                    'status', 'comments', and 'finding_details' (keys are lowercased for XML targets).
+            
+            Returns:
+                tuple: (updated_destination, total, matched)
+                  - updated_destination: parsed JSON dict (for .cklb) or lxml ElementTree/root (for .ckl);
+                    None if the destination could not be read/parsed.
+                  - total (int): number of findings inspected in the destination.
+                  - matched (int): number of findings updated from source_map.
+            
+            Notes:
+                - The function does not write changes to disk; it returns the modified in-memory structure.
+                - If a read/parse error occurs, (None, total, matched) is returned (total and matched will be 0).
+                - If a GUI `main_app.main_window` is available, the function updates its progressBar while processing.
+            """
             total = 0
             matched = 0
 
@@ -249,6 +342,21 @@ class ScanUtils():
 
 
     def split_nessus_file(file, main_app):
+        """
+        Split a multi-host Nessus (.nessus) XML file into individual per-host Nessus files.
+        
+        Given the path to a Nessus XML scan, writes one output file per ReportHost into a results/ directory
+        next to this module. Each output filename is "{fqdn}_{scan_date}.nessus", where `fqdn` is computed
+        via Utils.fqdn(host) and `scan_date` is taken from the first ReportHost HOST_START property
+        formatted as YYYYMMDD_HHMMSS. For each per-host file the function retains the original XML structure
+        but removes all other ReportHost nodes and injects a newly generated report_task_id into the
+        Policy/Preferences/ServerPreferences preference named "report_task_id" when present.
+        
+        Side effects:
+        - Writes per-host .nessus files to the results folder alongside this module.
+        - Logs progress and final status.
+        - Updates main_app's status bar and progress bar if `main_app.main_window` is available.
+        """
         with open(file, 'r', errors='replace', encoding='utf-8') as content_file:
             content = content_file.readlines()
         content = ''.join(content)
@@ -311,6 +419,27 @@ class ScanUtils():
             QtGui.QGuiApplication.processEvents()
 
     def merge_nessus_files(files, host_count, main_app):
+        """
+        Merge multiple Nessus (.nessus) files by policy and produce new merged files containing up to `host_count` hosts each.
+        
+        Detailed behavior:
+        - Parses each input Nessus XML file, groups ReportHost entries by the file's Policy name, and preserves the Policy definition for each group.
+        - For each policy, splits the collected hosts into chunks of size `host_count` and writes one merged .nessus file per chunk into the results/ directory (filename format: merged_POLICY-<sanitized_policy_name>_CHUNK-<index>.nessus).
+        - For each generated file the policy's ServerPreferences are updated with a new `report_task_id` and the `TARGET` preference is set to the comma-separated list of host names included in that chunk.
+        - Updates application status/progress via Utils.update_status and (if provided) `main_app`'s UI; logs processing steps.
+        
+        Parameters:
+            files (list[str]): Paths to input Nessus (.nessus) files to merge.
+            host_count (int): Maximum number of hosts per generated merged file; must be a positive integer greater than zero.
+        
+        Side effects:
+        - Writes merged .nessus files to the results/ directory adjacent to this module.
+        - Updates UI/status via Utils.update_status and may modify `main_app`'s status/progress widgets.
+        
+        Notes:
+        - If `host_count` is not a positive integer the function logs an error, updates status, prints an error message, and returns without writing files.
+        - The function returns None.
+        """
         if getattr(sys, 'frozen', False):
             application_path = sys._MEIPASS
         else:
@@ -447,14 +576,30 @@ class ScanUtils():
 
     @staticmethod
     def clean_ip(ip_raw):
-        """Strip CIDR notation from IP address"""
+        """
+        Return the IP address portion without any CIDR suffix.
+        
+        If input is falsy (None or empty), returns an empty string. Leading/trailing whitespace is removed and the portion before the first '/' is returned (so "192.0.2.1/24" -> "192.0.2.1", "2001:db8::1/64" -> "2001:db8::1").
+        """
         if not ip_raw:
             return ''
         return ip_raw.strip().split('/')[0]
 
     @staticmethod
     def clean_mac(mac_raw):
-        """Sanitize and format a MAC address to colon-separated format"""
+        """
+        Normalize a MAC address to uppercase, colon-separated 6-octet form.
+        
+        Strips all non-hex characters from the input, requires at least 12 hex digits,
+        and returns the first 12 hex digits formatted as `XX:XX:XX:XX:XX:XX` in uppercase.
+        If the input is falsy or contains fewer than 12 hex digits, returns an empty string.
+        
+        Parameters:
+            mac_raw (str): Raw MAC address string (may include separators, whitespace, or other characters).
+        
+        Returns:
+            str: Normalized MAC address in `AA:BB:CC:DD:EE:FF` format, or an empty string if invalid.
+        """
         if not mac_raw:
             return ''
         hex_str = re.sub(r'[^0-9a-fA-F]', '', mac_raw)

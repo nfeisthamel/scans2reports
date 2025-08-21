@@ -5,6 +5,7 @@
 
 venv/
 .venv-release-*/
+.venv-*/
 
 # Generic backups/duplicates
 * - backup.*

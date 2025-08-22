@@ -1,0 +1,7 @@
+-r requirements.in
+
+pyinstaller==6.14.1
+pyinstaller-hooks-contrib==2025.5
+
+# Only needed when you want to (re)generate requirements; not for runtime
+pipreqs==0.5.0 ; python_version < "3.13"

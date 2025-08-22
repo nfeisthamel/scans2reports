@@ -110,4 +110,5 @@
 * [ Fixes #99 ] ( http://github.com/CyberSecDef/scans2reports/commit/41927b38234791818bef2b598f7e21485a90526a)
 ## [1.6.1] - 20250820
 ### Local updated brought current, readme includes major changes.
-* [updating README](http://github.com/nfeisthamel/scans2reports/commit/cbe70ee6a980f181639e16ab9bf7cb646dc09bf6)
+* [ updating README ](http://github.com/nfeisthamel/scans2reports/commit/cbe70ee6a980f181639e16ab9bf7cb646dc09bf6)
+* [ Python 3.13 Support ](http://github.com/nfeisthamel/scans2reports/commit/593f81a69ec87a784b49657e74f3b2461933661a)

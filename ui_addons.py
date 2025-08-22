@@ -475,7 +475,7 @@ class UiAddons():
         logging.info('About Shown')
         msg = QtWidgets.QMessageBox()
         msg.setWindowTitle("About Scans To Reports")
-        msg.setText("Scans To Reports - Python Edition\nVersion 1.6.1\nCopyright (C) 2020 - Robert Weber\nhttps://cyber.trackr.live\nUpdated by Nicolas Feisthamel\nAugust 15 2025")
+        msg.setText("Scans To Reports - Python Edition\nVersion 1.7.0\nOriginal Copyright (C) 2020 - Robert Weber\nhttps://cyber.trackr.live\nUpdated & Maintained  by Nicolas Feisthamel - August 15 2025")
         x = msg.exec_()
 
     def show_help(self):

@@ -320,7 +320,7 @@ class UiAddons():
             self.main_form.tbl_scan_summary.setItem(currentRow, 11, QtWidgets.QTableWidgetItem( str(scan['credentialed'] )))
             currentRow += 1
             if currentRow >= self.main_form.tbl_scan_summary.rowCount():
-                    self.main_form.tbl_scan_summary.setRowCount(self.main_form.tbl_scan_summary.rowCount() + 1000)
+                self.main_form.tbl_scan_summary.setRowCount(self.main_form.tbl_scan_summary.rowCount() + 1000)
 
 
         self.main_form.tbl_scan_summary.setRowCount(currentRow + 1)
@@ -476,7 +476,7 @@ class UiAddons():
 
         html = f"""
         <b>Scans2Reports</b> — v{ver}<br>
-        Original work © 2020 Robert Weber (CyberSecDef). <a href="https://cyber.trackr.live">cyber.tracker.live</a><br>
+        Original work © 2020 Robert Weber (CyberSecDef). <a href="https://cyber.trackr.live">cyber.trackr.live</a><br>
         Updates and Maintenance © 2024–2025 Nicolas Feisthamel.<br>
         Licensed under the GNU LGPL v3.0.<br>
         Source for this version: <a href="{tag_url}">{tag_url}</a>
@@ -489,7 +489,7 @@ class UiAddons():
         msg.setText(html)
         for lbl in msg.findChildren(QtWidgets.QLabel):
             lbl.setOpenExternalLinks(True)
-        x = msg.exec_()
+        msg.exec_()
 
     def show_help(self):
         logging.info('Help Shown')
@@ -680,7 +680,7 @@ class UiAddons():
         logging.info('Updating Summary Headers')
         self.main_form.tbl_scan_summary.setRowCount(1)
         self.main_form.tbl_scan_summary.setColumnCount(12)
-        self.main_form.tbl_scan_summary.setHorizontalHeaderLabels(['Type', 'Hostname', 'IP','OS', 'Scan File Name', 'CAT I', 'CAT II', 'CAT III', 'CAT IV', 'Total', 'Score',' Credentialed'])
+        self.main_form.tbl_scan_summary.setHorizontalHeaderLabels(['Type', 'Hostname', 'IP','OS', 'Scan File Name', 'CAT I', 'CAT II', 'CAT III', 'CAT IV', 'Total', 'Score','Credentialed'])
         self.main_form.tbl_scan_summary.resizeColumnsToContents()
         self.main_form.tbl_scan_summary.horizontalHeader().setStretchLastSection(True)
 
@@ -777,7 +777,7 @@ class FileDrop(QtWidgets.QLabel):
                 item.setData(QtCore.Qt.UserRole, filepath)
                 self.main_form.tbl_selected_scans.setItem(current_row, 1, item)
                 self.main_form.tbl_selected_scans.setItem(current_row, 2, QtWidgets.QTableWidgetItem( time.strftime( '%Y-%m-%d %H:%M:%S', time.gmtime( os.path.getmtime( filepath ))) ) )
-                self.main_form.tbl_selected_scans.setItem(current_row, 3, QNumericTableWidgetItem( QtWidgets.QTableWidgetItem( str( os.path.getsize( filepath ))) ) )
+                self.main_form.tbl_selected_scans.setItem(current_row, 3, QNumericTableWidgetItem(str(os.path.getsize(filepath))))
                 self.main_form.tbl_selected_scans.setItem(current_row, 4, QtWidgets.QTableWidgetItem( extension ))
                 current_row += 1
 

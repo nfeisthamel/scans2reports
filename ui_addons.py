@@ -15,7 +15,7 @@ import psutil
 import jmespath
 import pickle
 from functools import partial
-from utils import Utils
+from utils import get_version, Utils
 from scan_utils import ScanUtils
 from scar_enums import TestResultOptions
 
@@ -472,10 +472,24 @@ class UiAddons():
         self.main_form.btn_execute.setEnabled(True)
 
     def show_about(self):
+        ver = get_version()
+        tag_url = f"https://github.com/nfeisthamel/scans2reports/releases/tag/v{ver}"
+
+        html = f"""
+        <b>Scans2Reports</b> — v{ver}<br>
+        Original work © 2020 Robert Weber (CyberSecDef). <a href="https://cyber.trackr.live">cyber.tracker.live</a><br>
+        Updates and Maintenance © 2024–2025 Nicolas Feisthamel.<br>
+        Licensed under the GNU LGPL v3.0.<br>
+        Source for this version: <a href="{tag_url}">{tag_url}</a>
+        """
         logging.info('About Shown')
         msg = QtWidgets.QMessageBox()
         msg.setWindowTitle("About Scans To Reports")
-        msg.setText("Scans To Reports - Python Edition\nVersion 1.7.0\nOriginal Copyright (C) 2020 - Robert Weber\nhttps://cyber.trackr.live\nUpdated & Maintained  by Nicolas Feisthamel - August 15 2025")
+        msg.setIcon(QtWidgets.QMessageBox.Information)
+        msg.setTextFormat(QtCore.Qt.RichText)
+        msg.setText(html)
+        for lbl in msg.findChildren(QtWidgets.QLabel):
+            lbl.setOpenExternalLinks(True)
         x = msg.exec_()
 
     def show_help(self):
@@ -483,25 +497,25 @@ class UiAddons():
         msg = QtWidgets.QMessageBox()
         msg.setWindowTitle("Scans To Reports - Help")
         msg.setText("""
-The Scans To Report Generator parses selected scan results and generates an XLSX file for package management.
-This XLSX file includes tabs for an eMASS compatible POAM, Open Findings, Missing Patches and several other key Cyber details.
-To utilize the tool, follow the steps below:
+        The Scans To Report Generator parses selected scan results and generates an XLSX file for package management.
+        This XLSX file includes tabs for an eMASS compatible POAM, Open Findings, Missing Patches and several other key Cyber details.
+        To utilize the tool, follow the steps below:
 
-1 - Fill out the 'Report Data Points' if applicable to the POAM you are generating.
-2 - If the Scheduled Completion Date should be pre-filled, ensure the checkbox is checked.
-3 - If the risk should automatically be lowered due to mitigations, ensure the lower risk checkbox is checked.
-4 - Drop your selected scan files (ACAS, CKL(B) and SCAP) on the blue area, or click the 'Select Scan Files' button.
-5 - Once all your scans are selected, click on the green 'Parse Scan Files' button.
-6 - Once all the scans are parsed, click on the red 'Generate Report' button.
-7 - Once complete, your new file will be in the 'results' folder.
-8 - This will also generate a Mitigation, Impact, and Resource Required import template for use. You can fill these in and re-run the application to complete those fields on the POAM.
-9 - There is also a vendor-port mapping utility that can help complete the PPSM by mapping specific vendor ports to their functions. This can be accessed via the 'Utils' menu.
-10 - If applicable, a previous XLSX workbook with 'Hardware' and/or 'Software' tabs can be used to "enrich" a newly created workbook with missing values. *Use Caution*
-11 - SCAP/XCCDF files have issues importing at this time. 20250815
-12 - The update checklist function can update CKL -> CKL, CKLB -> CKLB, or CKL -> CKLB.
-13 - The standalone POAM workbook will never print CAT IV findings.
-14 - The standalone Deviations workbook will only use CKL/CKLB data, and only if the 'Deviations' have been completed in SCC.
-""")
+        1 - Fill out the 'Report Data Points' if applicable to the POAM you are generating.
+        2 - If the Scheduled Completion Date should be pre-filled, ensure the checkbox is checked.
+        3 - If the risk should automatically be lowered due to mitigations, ensure the lower risk checkbox is checked.
+        4 - Drop your selected scan files (ACAS, CKL(B) and SCAP) on the blue area, or click the 'Select Scan Files' button.
+        5 - Once all your scans are selected, click on the green 'Parse Scan Files' button.
+        6 - Once all the scans are parsed, click on the red 'Generate Report' button.
+        7 - Once complete, your new file will be in the 'results' folder.
+        8 - This will also generate a Mitigation, Impact, and Resource Required import template for use. You can fill these in and re-run the application to complete those fields on the POAM.
+        9 - There is also a vendor-port mapping utility that can help complete the PPSM by mapping specific vendor ports to their functions. This can be accessed via the 'Utils' menu.
+        10 - If applicable, a previous XLSX workbook with 'Hardware' and/or 'Software' tabs can be used to "enrich" a newly created workbook with missing values. *Use Caution*
+        11 - SCAP/XCCDF files have issues importing at this time. 20250815
+        12 - The update checklist function can update CKL -> CKL, CKLB -> CKLB, or CKL -> CKLB.
+        13 - The standalone POAM workbook will never print CAT IV findings.
+        14 - The standalone Deviations workbook will only use CKL/CKLB data, and only if the 'Deviations' have been completed in SCC.
+        """)
         x = msg.exec_()
 
 

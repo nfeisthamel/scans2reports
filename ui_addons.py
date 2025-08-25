@@ -53,7 +53,7 @@ class UiAddons():
         self.main_form.tbl_selected_scans.horizontalHeader().setSortIndicatorShown(True)
         self.main_form.tbl_scan_summary.horizontalHeader().setSortIndicatorShown(True)
         FORMAT = "[%(asctime)s ] %(levelname)s - %(filename)s; %(lineno)s: %(name)s.%(module)s.%(funcName)s(): %(message)s"
-        logging.basicConfig(filename=f'{self.main_app.application_path}/scans2reports.log', level=logging.INFO, format=FORMAT)
+        logging.basicConfig(filename="{self.main_app.application_path}/scans2reports.log", level=logging.INFO, format=FORMAT)
 
     def update_form_values(self):
         self.main_form.spnExcludeDays.setValue( self.main_app.scar_conf.get('exclude_plugins') )

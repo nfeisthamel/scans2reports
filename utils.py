@@ -1,9 +1,15 @@
+# Version Control
+__version__ = "1.7.0"
+def get_version() -> str:
+    return __version__
+
 import re
 import pprint
 import logging
 import ipaddress
 from PyQt5 import QtCore, QtGui, QtWidgets
 from lxml import etree
+
 """ Utilities module of static methods """
 class Utils(object):
     """Utilities class """

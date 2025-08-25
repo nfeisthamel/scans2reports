@@ -2,6 +2,7 @@
 /scans2reports.log
 /__pycache__/
 *.pkl
+/dev/
 
 venv/
 .venv-release-*/

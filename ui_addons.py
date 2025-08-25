@@ -15,7 +15,7 @@ import psutil
 import jmespath
 import pickle
 from functools import partial
-from utils import Utils
+from utils import get_version, Utils
 from scan_utils import ScanUtils
 from scar_enums import TestResultOptions
 
@@ -53,7 +53,7 @@ class UiAddons():
         self.main_form.tbl_selected_scans.horizontalHeader().setSortIndicatorShown(True)
         self.main_form.tbl_scan_summary.horizontalHeader().setSortIndicatorShown(True)
         FORMAT = "[%(asctime)s ] %(levelname)s - %(filename)s; %(lineno)s: %(name)s.%(module)s.%(funcName)s(): %(message)s"
-        logging.basicConfig(filename='{self.main_app.application_path}/scans2reports.log', level=logging.INFO, format=FORMAT)
+        logging.basicConfig(filename="{self.main_app.application_path}/scans2reports.log", level=logging.INFO, format=FORMAT)
 
     def update_form_values(self):
         self.main_form.spnExcludeDays.setValue( self.main_app.scar_conf.get('exclude_plugins') )
@@ -117,7 +117,7 @@ class UiAddons():
                         self.main_form.tbl_selected_scans.setItem(0, 1, item)
 
                         self.main_form.tbl_selected_scans.setItem(0, 2, QtWidgets.QTableWidgetItem( time.strftime( '%Y-%m-%d %H:%M:%S', time.gmtime( os.path.getmtime( filepath ))) ) )
-                        self.main_form.tbl_selected_scans.setItem(0, 3, QNumericTableWidgetItem( QtWidgets.QTableWidgetItem( str( os.path.getsize( filepath ))) ) )
+                        self.main_form.tbl_selected_scans.setItem(0, 3, QNumericTableWidgetItem(str(os.path.getsize(filepath))))
                         self.main_form.tbl_selected_scans.setItem(0, 4, QtWidgets.QTableWidgetItem( extension ))
 
                         self.main_form.tbl_selected_scans.resizeColumnsToContents()
@@ -268,16 +268,13 @@ class UiAddons():
                 self.main_form.tbl_scan_summary.setItem(currentRow, 1, QtWidgets.QTableWidgetItem( host['hostname'] ))
                 self.main_form.tbl_scan_summary.setItem(currentRow, 2, QtWidgets.QTableWidgetItem( host['ip'] ))
                 self.main_form.tbl_scan_summary.setItem(currentRow, 3, QtWidgets.QTableWidgetItem( host['os'] ))
-
                 self.main_form.tbl_scan_summary.setItem(currentRow, 4, QtWidgets.QTableWidgetItem( os.path.basename( scan['filename'] )))
-
-                self.main_form.tbl_scan_summary.setItem(currentRow, 5, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(host['cati'])) ) ) )
-                self.main_form.tbl_scan_summary.setItem(currentRow, 6, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(host['catii'])) ) ) )
-                self.main_form.tbl_scan_summary.setItem(currentRow, 7, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(host['catiii'])) ) ) )
-                self.main_form.tbl_scan_summary.setItem(currentRow, 8, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(host['cativ'])) ) ) )
-
-                self.main_form.tbl_scan_summary.setItem(currentRow, 9, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(int( len(host['cati']) + len(host['catii']) + len(host['catiii']) + len(host['cativ']) )) ) ) )
-                self.main_form.tbl_scan_summary.setItem(currentRow, 10, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(int( 10*len(host['cati']) + 3*len(host['catii']) + len(host['catiii']) )) ) ) )
+                self.main_form.tbl_scan_summary.setItem(currentRow, 5,  QNumericTableWidgetItem(str(len(host['cati']))))
+                self.main_form.tbl_scan_summary.setItem(currentRow, 6,  QNumericTableWidgetItem(str(len(host['catii']))))
+                self.main_form.tbl_scan_summary.setItem(currentRow, 7,  QNumericTableWidgetItem(str(len(host['catiii']))))
+                self.main_form.tbl_scan_summary.setItem(currentRow, 8,  QNumericTableWidgetItem(str(len(host['cativ']))))
+                self.main_form.tbl_scan_summary.setItem(currentRow, 9,  QNumericTableWidgetItem(str(len(host['cati']) + len(host['catii']) + len(host['catiii']) + len(host['cativ']))))
+                self.main_form.tbl_scan_summary.setItem(currentRow, 10, QNumericTableWidgetItem(str(10*len(host['cati']) + 3*len(host['catii']) + len(host['catiii']))))               
                 self.main_form.tbl_scan_summary.setItem(currentRow, 11, QtWidgets.QTableWidgetItem( str(host['credentialed'] )))
 
                 currentRow += 1
@@ -291,7 +288,7 @@ class UiAddons():
                 ip: ip,
                 os: os,
                 filename: filename,
-                credentialed: credentialed
+                credentialed: credentialed,
                 scan_date: scan_date,
                 version: version,
                 release: release,
@@ -313,20 +310,17 @@ class UiAddons():
             self.main_form.tbl_scan_summary.setItem(currentRow, 1, QtWidgets.QTableWidgetItem( scan['hostname'] ))
             self.main_form.tbl_scan_summary.setItem(currentRow, 2, QtWidgets.QTableWidgetItem( scan['ip'] ))
             self.main_form.tbl_scan_summary.setItem(currentRow, 3, QtWidgets.QTableWidgetItem( scan['os'] ))
-
             self.main_form.tbl_scan_summary.setItem(currentRow, 4, QtWidgets.QTableWidgetItem( os.path.basename( scan['filename'] )))
-
-            self.main_form.tbl_scan_summary.setItem(currentRow, 5, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(scan['cati'])) ) ) )
-            self.main_form.tbl_scan_summary.setItem(currentRow, 6, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(scan['catii']))) ) )
-            self.main_form.tbl_scan_summary.setItem(currentRow, 7, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(scan['catiii']))) ) )
-            self.main_form.tbl_scan_summary.setItem(currentRow, 8, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(scan['cativ']))) ) )
-
-            self.main_form.tbl_scan_summary.setItem(currentRow, 9, QtWidgets.QTableWidgetItem(  str(int( len(scan['cati']) + len(scan['catii']) + len(scan['catiii']) + len(scan['cativ']) ) ) ) ) 
-            self.main_form.tbl_scan_summary.setItem(currentRow, 10, QtWidgets.QTableWidgetItem( str(int( 10*len(scan['cati']) + 3*len(scan['catii']) + len(scan['catiii']) ) ) ) )
+            self.main_form.tbl_scan_summary.setItem(currentRow, 5,  QNumericTableWidgetItem(str(len(scan['cati']))))
+            self.main_form.tbl_scan_summary.setItem(currentRow, 6,  QNumericTableWidgetItem(str(len(scan['catii']))))
+            self.main_form.tbl_scan_summary.setItem(currentRow, 7,  QNumericTableWidgetItem(str(len(scan['catiii']))))
+            self.main_form.tbl_scan_summary.setItem(currentRow, 8,  QNumericTableWidgetItem(str(len(scan['cativ']))))
+            self.main_form.tbl_scan_summary.setItem(currentRow, 9,  QNumericTableWidgetItem(str(len(scan['cati']) + len(scan['catii']) + len(scan['catiii']) + len(scan['cativ']))))
+            self.main_form.tbl_scan_summary.setItem(currentRow, 10, QNumericTableWidgetItem(str(10*len(scan['cati']) + 3*len(scan['catii']) + len(scan['catiii']))))            
             self.main_form.tbl_scan_summary.setItem(currentRow, 11, QtWidgets.QTableWidgetItem( str(scan['credentialed'] )))
             currentRow += 1
             if currentRow >= self.main_form.tbl_scan_summary.rowCount():
-                    self.main_form.tbl_scan_summary.setRowCount(self.main_form.tbl_scan_summary.rowCount() + 1000)
+                self.main_form.tbl_scan_summary.setRowCount(self.main_form.tbl_scan_summary.rowCount() + 1000)
 
 
         self.main_form.tbl_scan_summary.setRowCount(currentRow + 1)
@@ -368,7 +362,9 @@ class UiAddons():
         logging.info('Update CKL Clicked')
 
         options = QtWidgets.QFileDialog.Options()
-        files, _ = QtWidgets.QFileDialog.getOpenFileNames(None,"Select Source .CKL File", "","STIG Checklist (*.ckl);;", options=options)
+        source = None
+        destination = None
+        files, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Source .CKL File", "", "STIG Checklist (*.ckl);;", options=options)
         if files:
             source = files[0]
             
@@ -379,6 +375,9 @@ class UiAddons():
             
         if source is not None and destination is not None:
             ScanUtils.update_ckl(source, destination, self.main_app)
+        else:
+            logging.info("Update CKL canceled by user.")
+            return
                 
                 
     def btn_execute_on_click(self):
@@ -472,36 +471,50 @@ class UiAddons():
         self.main_form.btn_execute.setEnabled(True)
 
     def show_about(self):
+        ver = get_version()
+        tag_url = f"https://github.com/nfeisthamel/scans2reports/releases/tag/v{ver}"
+
+        html = f"""
+        <b>Scans2Reports</b> — v{ver}<br>
+        Original work © 2020 Robert Weber (CyberSecDef). <a href="https://cyber.trackr.live">cyber.trackr.live</a><br>
+        Updates and Maintenance © 2024–2025 Nicolas Feisthamel.<br>
+        Licensed under the GNU LGPL v3.0.<br>
+        Source for this version: <a href="{tag_url}">{tag_url}</a>
+        """
         logging.info('About Shown')
         msg = QtWidgets.QMessageBox()
         msg.setWindowTitle("About Scans To Reports")
-        msg.setText("Scans To Reports - Python Edition\nVersion 1.6.1\nCopyright (C) 2020 - Robert Weber\nhttps://cyber.trackr.live\nUpdated by Nicolas Feisthamel\nAugust 15 2025")
-        x = msg.exec_()
+        msg.setIcon(QtWidgets.QMessageBox.Information)
+        msg.setTextFormat(QtCore.Qt.RichText)
+        msg.setText(html)
+        for lbl in msg.findChildren(QtWidgets.QLabel):
+            lbl.setOpenExternalLinks(True)
+        msg.exec_()
 
     def show_help(self):
         logging.info('Help Shown')
         msg = QtWidgets.QMessageBox()
         msg.setWindowTitle("Scans To Reports - Help")
         msg.setText("""
-The Scans To Report Generator parses selected scan results and generates an XLSX file for package management.
-This XLSX file includes tabs for an eMASS compatible POAM, Open Findings, Missing Patches and several other key Cyber details.
-To utilize the tool, follow the steps below:
+        The Scans To Report Generator parses selected scan results and generates an XLSX file for package management.
+        This XLSX file includes tabs for an eMASS compatible POAM, Open Findings, Missing Patches and several other key Cyber details.
+        To utilize the tool, follow the steps below:
 
-1 - Fill out the 'Report Data Points' if applicable to the POAM you are generating.
-2 - If the Scheduled Completion Date should be pre-filled, ensure the checkbox is checked.
-3 - If the risk should automatically be lowered due to mitigations, ensure the lower risk checkbox is checked.
-4 - Drop your selected scan files (ACAS, CKL(B) and SCAP) on the blue area, or click the 'Select Scan Files' button.
-5 - Once all your scans are selected, click on the green 'Parse Scan Files' button.
-6 - Once all the scans are parsed, click on the red 'Generate Report' button.
-7 - Once complete, your new file will be in the 'results' folder.
-8 - This will also generate a Mitigation, Impact, and Resource Required import template for use. You can fill these in and re-run the application to complete those fields on the POAM.
-9 - There is also a vendor-port mapping utility that can help complete the PPSM by mapping specific vendor ports to their functions. This can be accessed via the 'Utils' menu.
-10 - If applicable, a previous XLSX workbook with 'Hardware' and/or 'Software' tabs can be used to "enrich" a newly created workbook with missing values. *Use Caution*
-11 - SCAP/XCCDF files have issues importing at this time. 20250815
-12 - The update checklist function can update CKL -> CKL, CKLB -> CKLB, or CKL -> CKLB.
-13 - The standalone POAM workbook will never print CAT IV findings.
-14 - The standalone Deviations workbook will only use CKL/CKLB data, and only if the 'Deviations' have been completed in SCC.
-""")
+        1 - Fill out the 'Report Data Points' if applicable to the POAM you are generating.
+        2 - If the Scheduled Completion Date should be pre-filled, ensure the checkbox is checked.
+        3 - If the risk should automatically be lowered due to mitigations, ensure the lower risk checkbox is checked.
+        4 - Drop your selected scan files (ACAS, CKL(B) and SCAP) on the blue area, or click the 'Select Scan Files' button.
+        5 - Once all your scans are selected, click on the green 'Parse Scan Files' button.
+        6 - Once all the scans are parsed, click on the red 'Generate Report' button.
+        7 - Once complete, your new file will be in the 'results' folder.
+        8 - This will also generate a Mitigation, Impact, and Resource Required import template for use. You can fill these in and re-run the application to complete those fields on the POAM.
+        9 - There is also a vendor-port mapping utility that can help complete the PPSM by mapping specific vendor ports to their functions. This can be accessed via the 'Utils' menu.
+        10 - If applicable, a previous XLSX workbook with 'Hardware' and/or 'Software' tabs can be used to "enrich" a newly created workbook with missing values. *Use Caution*
+        11 - SCAP/XCCDF files have issues importing at this time. 20250815
+        12 - The update checklist function can update CKL -> CKL, CKLB -> CKLB, or CKL -> CKLB.
+        13 - The standalone POAM workbook will never print CAT IV findings.
+        14 - The standalone Deviations workbook will only use CKL/CKLB data, and only if the 'Deviations' have been completed in SCC.
+        """)
         x = msg.exec_()
 
 
@@ -667,7 +680,7 @@ To utilize the tool, follow the steps below:
         logging.info('Updating Summary Headers')
         self.main_form.tbl_scan_summary.setRowCount(1)
         self.main_form.tbl_scan_summary.setColumnCount(12)
-        self.main_form.tbl_scan_summary.setHorizontalHeaderLabels(['Type', 'Hostname', 'IP','OS', 'Scan File Name', 'CAT I', 'CAT II', 'CAT III', 'CAT IV', 'Total', 'Score',' Credentialed'])
+        self.main_form.tbl_scan_summary.setHorizontalHeaderLabels(['Type', 'Hostname', 'IP','OS', 'Scan File Name', 'CAT I', 'CAT II', 'CAT III', 'CAT IV', 'Total', 'Score','Credentialed'])
         self.main_form.tbl_scan_summary.resizeColumnsToContents()
         self.main_form.tbl_scan_summary.horizontalHeader().setStretchLastSection(True)
 
@@ -764,7 +777,7 @@ class FileDrop(QtWidgets.QLabel):
                 item.setData(QtCore.Qt.UserRole, filepath)
                 self.main_form.tbl_selected_scans.setItem(current_row, 1, item)
                 self.main_form.tbl_selected_scans.setItem(current_row, 2, QtWidgets.QTableWidgetItem( time.strftime( '%Y-%m-%d %H:%M:%S', time.gmtime( os.path.getmtime( filepath ))) ) )
-                self.main_form.tbl_selected_scans.setItem(current_row, 3, QNumericTableWidgetItem( QtWidgets.QTableWidgetItem( str( os.path.getsize( filepath ))) ) )
+                self.main_form.tbl_selected_scans.setItem(current_row, 3, QNumericTableWidgetItem(str(os.path.getsize(filepath))))
                 self.main_form.tbl_selected_scans.setItem(current_row, 4, QtWidgets.QTableWidgetItem( extension ))
                 current_row += 1
 

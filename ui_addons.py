@@ -53,7 +53,7 @@ class UiAddons():
         self.main_form.tbl_selected_scans.horizontalHeader().setSortIndicatorShown(True)
         self.main_form.tbl_scan_summary.horizontalHeader().setSortIndicatorShown(True)
         FORMAT = "[%(asctime)s ] %(levelname)s - %(filename)s; %(lineno)s: %(name)s.%(module)s.%(funcName)s(): %(message)s"
-        logging.basicConfig(filename='{self.main_app.application_path}/scans2reports.log', level=logging.INFO, format=FORMAT)
+        logging.basicConfig(filename=f'{self.main_app.application_path}/scans2reports.log', level=logging.INFO, format=FORMAT)
 
     def update_form_values(self):
         self.main_form.spnExcludeDays.setValue( self.main_app.scar_conf.get('exclude_plugins') )
@@ -117,7 +117,7 @@ class UiAddons():
                         self.main_form.tbl_selected_scans.setItem(0, 1, item)
 
                         self.main_form.tbl_selected_scans.setItem(0, 2, QtWidgets.QTableWidgetItem( time.strftime( '%Y-%m-%d %H:%M:%S', time.gmtime( os.path.getmtime( filepath ))) ) )
-                        self.main_form.tbl_selected_scans.setItem(0, 3, QNumericTableWidgetItem( QtWidgets.QTableWidgetItem( str( os.path.getsize( filepath ))) ) )
+                        self.main_form.tbl_selected_scans.setItem(0, 3, QNumericTableWidgetItem(str(os.path.getsize(filepath))))
                         self.main_form.tbl_selected_scans.setItem(0, 4, QtWidgets.QTableWidgetItem( extension ))
 
                         self.main_form.tbl_selected_scans.resizeColumnsToContents()
@@ -268,16 +268,13 @@ class UiAddons():
                 self.main_form.tbl_scan_summary.setItem(currentRow, 1, QtWidgets.QTableWidgetItem( host['hostname'] ))
                 self.main_form.tbl_scan_summary.setItem(currentRow, 2, QtWidgets.QTableWidgetItem( host['ip'] ))
                 self.main_form.tbl_scan_summary.setItem(currentRow, 3, QtWidgets.QTableWidgetItem( host['os'] ))
-
                 self.main_form.tbl_scan_summary.setItem(currentRow, 4, QtWidgets.QTableWidgetItem( os.path.basename( scan['filename'] )))
-
-                self.main_form.tbl_scan_summary.setItem(currentRow, 5, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(host['cati'])) ) ) )
-                self.main_form.tbl_scan_summary.setItem(currentRow, 6, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(host['catii'])) ) ) )
-                self.main_form.tbl_scan_summary.setItem(currentRow, 7, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(host['catiii'])) ) ) )
-                self.main_form.tbl_scan_summary.setItem(currentRow, 8, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(host['cativ'])) ) ) )
-
-                self.main_form.tbl_scan_summary.setItem(currentRow, 9, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(int( len(host['cati']) + len(host['catii']) + len(host['catiii']) + len(host['cativ']) )) ) ) )
-                self.main_form.tbl_scan_summary.setItem(currentRow, 10, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(int( 10*len(host['cati']) + 3*len(host['catii']) + len(host['catiii']) )) ) ) )
+                self.main_form.tbl_scan_summary.setItem(currentRow, 5,  QNumericTableWidgetItem(str(len(host['cati']))))
+                self.main_form.tbl_scan_summary.setItem(currentRow, 6,  QNumericTableWidgetItem(str(len(host['catii']))))
+                self.main_form.tbl_scan_summary.setItem(currentRow, 7,  QNumericTableWidgetItem(str(len(host['catiii']))))
+                self.main_form.tbl_scan_summary.setItem(currentRow, 8,  QNumericTableWidgetItem(str(len(host['cativ']))))
+                self.main_form.tbl_scan_summary.setItem(currentRow, 9,  QNumericTableWidgetItem(str(len(host['cati']) + len(host['catii']) + len(host['catiii']) + len(host['cativ']))))
+                self.main_form.tbl_scan_summary.setItem(currentRow, 10, QNumericTableWidgetItem(str(10*len(host['cati']) + 3*len(host['catii']) + len(host['catiii']))))               
                 self.main_form.tbl_scan_summary.setItem(currentRow, 11, QtWidgets.QTableWidgetItem( str(host['credentialed'] )))
 
                 currentRow += 1
@@ -291,7 +288,7 @@ class UiAddons():
                 ip: ip,
                 os: os,
                 filename: filename,
-                credentialed: credentialed
+                credentialed: credentialed,
                 scan_date: scan_date,
                 version: version,
                 release: release,
@@ -313,16 +310,13 @@ class UiAddons():
             self.main_form.tbl_scan_summary.setItem(currentRow, 1, QtWidgets.QTableWidgetItem( scan['hostname'] ))
             self.main_form.tbl_scan_summary.setItem(currentRow, 2, QtWidgets.QTableWidgetItem( scan['ip'] ))
             self.main_form.tbl_scan_summary.setItem(currentRow, 3, QtWidgets.QTableWidgetItem( scan['os'] ))
-
             self.main_form.tbl_scan_summary.setItem(currentRow, 4, QtWidgets.QTableWidgetItem( os.path.basename( scan['filename'] )))
-
-            self.main_form.tbl_scan_summary.setItem(currentRow, 5, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(scan['cati'])) ) ) )
-            self.main_form.tbl_scan_summary.setItem(currentRow, 6, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(scan['catii']))) ) )
-            self.main_form.tbl_scan_summary.setItem(currentRow, 7, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(scan['catiii']))) ) )
-            self.main_form.tbl_scan_summary.setItem(currentRow, 8, QNumericTableWidgetItem(QtWidgets.QTableWidgetItem( str(len(scan['cativ']))) ) )
-
-            self.main_form.tbl_scan_summary.setItem(currentRow, 9, QtWidgets.QTableWidgetItem(  str(int( len(scan['cati']) + len(scan['catii']) + len(scan['catiii']) + len(scan['cativ']) ) ) ) ) 
-            self.main_form.tbl_scan_summary.setItem(currentRow, 10, QtWidgets.QTableWidgetItem( str(int( 10*len(scan['cati']) + 3*len(scan['catii']) + len(scan['catiii']) ) ) ) )
+            self.main_form.tbl_scan_summary.setItem(currentRow, 5,  QNumericTableWidgetItem(str(len(scan['cati']))))
+            self.main_form.tbl_scan_summary.setItem(currentRow, 6,  QNumericTableWidgetItem(str(len(scan['catii']))))
+            self.main_form.tbl_scan_summary.setItem(currentRow, 7,  QNumericTableWidgetItem(str(len(scan['catiii']))))
+            self.main_form.tbl_scan_summary.setItem(currentRow, 8,  QNumericTableWidgetItem(str(len(scan['cativ']))))
+            self.main_form.tbl_scan_summary.setItem(currentRow, 9,  QNumericTableWidgetItem(str(len(scan['cati']) + len(scan['catii']) + len(scan['catiii']) + len(scan['cativ']))))
+            self.main_form.tbl_scan_summary.setItem(currentRow, 10, QNumericTableWidgetItem(str(10*len(scan['cati']) + 3*len(scan['catii']) + len(scan['catiii']))))            
             self.main_form.tbl_scan_summary.setItem(currentRow, 11, QtWidgets.QTableWidgetItem( str(scan['credentialed'] )))
             currentRow += 1
             if currentRow >= self.main_form.tbl_scan_summary.rowCount():
@@ -368,7 +362,9 @@ class UiAddons():
         logging.info('Update CKL Clicked')
 
         options = QtWidgets.QFileDialog.Options()
-        files, _ = QtWidgets.QFileDialog.getOpenFileNames(None,"Select Source .CKL File", "","STIG Checklist (*.ckl);;", options=options)
+        source = None
+        destination = None
+        files, _ = QtWidgets.QFileDialog.getOpenFileNames(None, "Select Source .CKL File", "", "STIG Checklist (*.ckl);;", options=options)
         if files:
             source = files[0]
             
@@ -379,6 +375,9 @@ class UiAddons():
             
         if source is not None and destination is not None:
             ScanUtils.update_ckl(source, destination, self.main_app)
+        else:
+            logging.info("Update CKL canceled by user.")
+            return
                 
                 
     def btn_execute_on_click(self):

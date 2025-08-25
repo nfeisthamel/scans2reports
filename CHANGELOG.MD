@@ -113,4 +113,4 @@
 * [updating README](http://github.com/nfeisthamel/scans2reports/commit/cbe70ee6a980f181639e16ab9bf7cb646dc09bf6)
 ## [Version 1.7.0] - 20250825
 ### Support for python 3.13 added - Dependencies modernized - dev/runtime req split* 
-[Python 3.13 Support](http://github.com/nfeisthamel/scans2reports/commit/e8e420649119d7b7acea75ac9660ff163a098170)
+[Python 3.13 Support](http://github.com/nfeisthamel/scans2reports/commit/5b8eadcc7797ef5c00f36701de38c9f9ef1cac1b)
